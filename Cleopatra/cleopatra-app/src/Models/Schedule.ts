@@ -1,5 +1,6 @@
 export interface Schedule {
-    employeeId: string;
+    id: number;
+    employeeId: number;
     startDateTime: Date;
     endDateTime: Date;
     breakTimes: string;

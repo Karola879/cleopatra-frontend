@@ -1,8 +1,9 @@
 export interface Customer {
-    id: string;
+    id: number;
     name: string;
     email: string;
     phoneNumber: string;
     dateOfBirth: string;
+    profilePicture: string;
     createdDate: Date
 }

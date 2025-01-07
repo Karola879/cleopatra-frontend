@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+}
+
+.links {
+    display: flex;
+    margin-left: 20%;
+    gap: 30%;
+}
+
+.login > div {
+    margin-bottom: 10%;
+}

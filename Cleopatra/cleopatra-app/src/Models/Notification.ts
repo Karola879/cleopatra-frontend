@@ -1,6 +1,6 @@
 export interface Notification {
-    notificationId: string;
-    customerId: string;
+    notificationId: number;
+    customerId: number;
     type: string;
     message: string;
     sentDate: Date;
