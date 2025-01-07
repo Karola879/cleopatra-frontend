@@ -1,21 +1,22 @@
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
-import App from '../App'; // Import głównego komponentu aplikacji
-import ServicesList from '../Components/ServicesList'; // Import komponentu ServicesList
-import Prices from '../Components/Prices'
-import NotFound from '../NotFound'; // Import komponentu NotFound
+import App from '../App';
+import ServicesList from '../Components/ServicesList';
+import Prices from '../Components/PricesList';
+import NotFound from '../NotFound';
+import NewAppointment from '../Components/NewAppointment';
 
 export const routes: RouteObject[] = [
   {
     path: '/',
-    element: <App />, // Komponent główny (App.tsx)
+    element: <App />,
     children: [
-      { path: 'services', element: <ServicesList /> }, // Trasa dla /services
-      { path: 'prices', element: <Prices />},
-      { path: 'not-found', element: <NotFound /> }, // Trasa dla strony NotFound
-      { path: '*', element: <Navigate replace to='/not-found' /> }, // Przekierowanie na /not-found w przypadku błędu
-    ]
-  }
+      { path: 'services', element: <ServicesList /> },
+      { path: 'prices', element: <Prices /> },
+      { path: 'newappointment/:serviceId', element: <NewAppointment /> }, // Dodanie parametru
+      { path: 'not-found', element: <NotFound /> },
+      { path: '*', element: <Navigate replace to='/not-found' /> },
+    ],
+  },
 ];
 
-// Tworzymy router na podstawie zdefiniowanych tras
 export const router = createBrowserRouter(routes);
