@@ -2,8 +2,6 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from './SiteElements/Header';
-import ServicesList from './Components/ServicesList';
-import Prices from './Components/Prices';
 import { Outlet } from 'react-router-dom';
 
 function App() {

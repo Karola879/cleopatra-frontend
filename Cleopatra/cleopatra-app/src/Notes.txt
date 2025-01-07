@@ -1,2 +1,3 @@
 Na razie jeszcze nie robię z bazą, tylko wyświetlanie danych dodanych w pliku.
-Router działa dla plików, pewnie trzeba będzie pozmieniać jak będzie backend
+
+Wysyłanie powiadomień będzie jak pracownik zatwierdzi, zedytuje lub odwoła wizytę. Nie będzie można wybrać osoby, ale będzie można wybrać datę. od 9 do 17, po 50 min, 10 min przerwy pomiędzy
