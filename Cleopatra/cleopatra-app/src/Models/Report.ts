@@ -1,5 +1,5 @@
 export interface Report {
-    reportId: string;
+    reportId: number;
     generatedDate: Date;
     type: string;
     filePath: string;

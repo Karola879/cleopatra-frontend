@@ -1,0 +1,2 @@
+Na razie jeszcze nie robię z bazą, tylko wyświetlanie danych dodanych w pliku.
+Router działa dla plików, pewnie trzeba będzie pozmieniać jak będzie backend

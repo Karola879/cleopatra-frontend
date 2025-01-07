@@ -1,16 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Header from './SiteElements/Header';
+import ServicesList from './Components/ServicesList';
+import Prices from './Components/Prices';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Cleopatra app in process.
-        </p>
-      </header>
+    <div className="app-container">
+      <div>
+        <Header />
+        <Outlet />
+      </div> 
     </div>
   );
 }
