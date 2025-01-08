@@ -4,6 +4,8 @@ import ServicesList from '../Components/ServicesList';
 import Prices from '../Components/PricesList';
 import NotFound from '../NotFound';
 import NewAppointment from '../Components/NewAppointment';
+import Team from '../Components/Team';
+import Contact from '../Components/ContactInfo';
 
 export const routes: RouteObject[] = [
   {
@@ -12,7 +14,9 @@ export const routes: RouteObject[] = [
     children: [
       { path: 'services', element: <ServicesList /> },
       { path: 'prices', element: <Prices /> },
-      { path: 'newappointment/:serviceId', element: <NewAppointment /> }, // Dodanie parametru
+      { path: 'newappointment/:serviceId', element: <NewAppointment /> },
+      { path: 'team', element: <Team /> },
+      { path: 'contact', element: <Contact /> },
       { path: 'not-found', element: <NotFound /> },
       { path: '*', element: <Navigate replace to='/not-found' /> },
     ],
