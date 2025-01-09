@@ -19,32 +19,54 @@ export default function NewAppointment() {
     const [appointmentDateTime, setAppointmentDateTime] = useState<string>("");
     const [appointmentConfirmed, setAppointmentConfirmed] = useState<boolean>(false);
     const [availableTimes, setAvailableTimes] = useState<string[]>([]); // Dostępne godziny pracy pracownika
+    const [selectedDate, setSelectedDate] = useState<string>(''); // Wybrana data
+    const [availableDates, setAvailableDates] = useState<string[]>([]); // Dostępne daty
+    const [timesByDate, setTimesByDate] = useState<Record<string, string[]>>({});
+
+
+
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1); // Ustawiamy datę na następny dzień
 
     useEffect(() => {
         if (employeeId) {
-            // Filtrujemy dostępne godziny na podstawie harmonogramu pracownika
             const schedule = ScheduleData.filter((s) => s.employeeId === employeeId);
-            const times: string[] = [];
-
+            const dates: string[] = [];
+            const timesByDate: Record<string, string[]> = {};
+    
             schedule.forEach((s) => {
                 const start = s.startDateTime;
                 const end = s.endDateTime;
-                const breakTime = s.breakTimes; // Czas przerwy w minutach
-
+                const breakTime = s.breakTimes;
+    
                 let currentTime = new Date(start.getTime());
                 while (currentTime < end) {
-                    // Sprawdzamy dostępność co godzinę z uwzględnieniem przerw
-                    let availableTime = new Date(currentTime.getTime());
-                    times.push(availableTime.toLocaleString('sv-SE').slice(0, 16)); // Format ISO bez strefy czasowej
-
-                    // Przesuwamy czas o godzinę
-                    currentTime.setHours(currentTime.getHours() + 1);
+                    const availableDate = currentTime.toLocaleDateString('sv-SE'); // Tylko data
+                    if (availableDate >= tomorrow.toLocaleDateString('sv-SE')) { // Tylko daty od jutra
+                        if (!dates.includes(availableDate)) {
+                            dates.push(availableDate);
+                        }
+    
+                        const time = currentTime.toLocaleString('sv-SE').slice(11, 16); // Godzina
+                        if (!timesByDate[availableDate]) {
+                            timesByDate[availableDate] = [];
+                        }
+                        timesByDate[availableDate].push(time);
+                    }
+                    currentTime.setMinutes(currentTime.getMinutes() + 60); // Co godzinę
                 }
             });
-            setAvailableTimes(times); // Ustawiamy dostępne godziny w stanie
+    
+            setAvailableDates(dates); // Ustawiamy dostępne daty
+            setTimesByDate(timesByDate); // Ustawiamy dostępne godziny na podstawie dat
+            if (dates.length > 0) {
+                setSelectedDate(dates[0]); // Domyślnie wybieramy pierwszą datę
+                setAvailableTimes(timesByDate[dates[0]]); // Ustawiamy godziny dla tej daty
+            }
         }
     }, [employeeId]);
-
+    
+    
     if (!service) {
         return <div>Nie znaleziono usługi o podanym ID.</div>;
     }
@@ -76,6 +98,16 @@ export default function NewAppointment() {
         }
     };
 
+    const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedDate = e.target.value;
+        setSelectedDate(selectedDate);
+        setAvailableTimes(timesByDate[selectedDate] || []); // Ustawiamy dostępne godziny dla wybranej daty
+    };    
+    
+    const handleTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setAppointmentDateTime(e.target.value);
+    };
+    
     return (
         <div className="appointment-form-container">
             {appointmentConfirmed ? (
@@ -108,23 +140,33 @@ export default function NewAppointment() {
                         </select>
                     </div>
                     <div>
-                        <label>Data i godzina wizyty:</label>
-                        <input
-                            type="datetime-local"
-                            value={appointmentDateTime}
-                            onChange={(e) => setAppointmentDateTime(e.target.value)}
-                            required
-                            min={availableTimes[0]} // Min. dostępna godzina
-                            max={availableTimes[availableTimes.length - 1]} // Max. dostępna godzina
-                            step="900" // Co 15 minut (w minutach)
-                            list="available-times" // Użyj daty, by wybierać z dostępnych godzin
-                        />
-                        <datalist id="available-times">
-                            {availableTimes.map((time, index) => (
-                                <option key={index} value={time} />
+                        <label>Wybierz datę wizyty:</label>
+                        <select value={selectedDate} onChange={handleDateChange} required>
+                            <option value="">-- Wybierz datę --</option>
+                            {availableDates.map((date, index) => (
+                                <option key={index} value={date}>
+                                    {date}
+                                </option>
                             ))}
-                        </datalist>
+                        </select>
                     </div>
+                    {selectedDate && (
+                        <div>
+                            <label>Wybierz godzinę:</label>
+                            <select
+                                value={appointmentDateTime}
+                                onChange={handleTimeChange}
+                                required
+                            >
+                                <option value="">-- Wybierz godzinę --</option>
+                                {availableTimes.map((time, index) => (
+                                    <option key={index} value={`${selectedDate}T${time}`}>
+                                        {time}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
                     <div>
                         <label>Nazwa usługi:</label>
                         <input type="text" value={service.name} disabled />
@@ -143,4 +185,5 @@ export default function NewAppointment() {
             )}
         </div>
     );
+    
 }

@@ -6,12 +6,14 @@ import NotFound from '../NotFound';
 import NewAppointment from '../Components/NewAppointment';
 import Team from '../Components/Team';
 import Contact from '../Components/ContactInfo';
+import HomePage from '../Components/HomePage';
 
 export const routes: RouteObject[] = [
   {
     path: '/',
     element: <App />,
     children: [
+      { path: '', element: <HomePage /> },
       { path: 'services', element: <ServicesList /> },
       { path: 'prices', element: <Prices /> },
       { path: 'newappointment/:serviceId', element: <NewAppointment /> },

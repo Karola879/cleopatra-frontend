@@ -4,7 +4,7 @@ import MapComponent from "./MapComponent";
 export default function Contact() {
     return (
         <div>
-            <h2>SALON KOSMETYCZNY</h2>
+            <h2>SALON KOSMETYCZNY CLEOPATRA</h2>
             <p>
                 ul. Kaszubska 23, 44-100 Gliwice
             </p>
@@ -12,7 +12,7 @@ export default function Contact() {
                 <p>Dane kontaktowe</p>
                 <ul>
                     <li>+48 123-456-789</li>
-                    <li>salon@gmail.com</li>
+                    <li>cleopatra@gmail.com</li>
                 </ul>
             </div>
             <div>
@@ -25,8 +25,8 @@ export default function Contact() {
             <div>
                 <p>Media społeczościowe</p>
                 <ul>
-                    <li>Facebook - Salon</li>
-                    <li>Instagram - salon</li>
+                    <li>Facebook - Cleopatra Beauty</li>
+                    <li>Instagram - Cleopatra Beauty</li>
                 </ul>
             </div>
             <div>
