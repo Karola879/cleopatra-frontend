@@ -7,6 +7,8 @@ import NewAppointment from '../Components/NewAppointment';
 import Team from '../Components/Team';
 import Contact from '../Components/ContactInfo';
 import HomePage from '../Components/HomePage';
+import Login from '../Login/Login';
+import Register from '../Login/Register';
 
 export const routes: RouteObject[] = [
   {
@@ -19,6 +21,8 @@ export const routes: RouteObject[] = [
       { path: 'newappointment/:serviceId', element: <NewAppointment /> },
       { path: 'team', element: <Team /> },
       { path: 'contact', element: <Contact /> },
+      { path: 'login', element: <Login /> },
+      { path: 'register', element: <Register /> },
       { path: 'not-found', element: <NotFound /> },
       { path: '*', element: <Navigate replace to='/not-found' /> },
     ],
