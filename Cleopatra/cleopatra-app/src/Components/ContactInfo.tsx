@@ -30,7 +30,7 @@ export default function Contact() {
                 </ul>
             </div>
             <div>
-                <MapComponent />
+               <MapComponent/>
             </div>
         </div>
     )
