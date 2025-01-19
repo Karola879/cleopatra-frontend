@@ -1,3 +1,9 @@
 Na razie jeszcze nie robię z bazą, tylko wyświetlanie danych dodanych w pliku.
 
-Wysyłanie powiadomień będzie jak pracownik zatwierdzi, zedytuje lub odwoła wizytę. Nie będzie można wybrać osoby, ale będzie można wybrać datę. od 9 do 17, po 50 min, 10 min przerwy pomiędzy
+Wysyłanie powiadomień będzie jak pracownik zatwierdzi, zedytuje lub odwoła wizytę.
+
+Widok opcji profilu będzie możliwy po zalogowaniu się, będzie przy logowaniu zaznaczenie czy jako pracownik czy jako klient
+
+W kalendarzu będą pojawiały się wizyty, każda będzie można przełożyć albo odwołać albo zatwierdzić.
+
+dodać token do login 
