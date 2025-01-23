@@ -41,9 +41,10 @@ const Login: React.FC = () => {
       const data = await response.json();
       setSuccess(data.message);
 
-      // Zapisanie tokena w localStorage lub innej formie
+      // Zapisanie tokena w localStorage
       localStorage.setItem("token", data.token);
-      console.log(data.token);
+      localStorage.setItem("role", data.role);
+      console.log(data);
 
       // Po udanym logowaniu przekierowanie na stronę główną
       window.location.href = '/';

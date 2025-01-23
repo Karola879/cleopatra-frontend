@@ -10,7 +10,7 @@ export default function NewAppointment() {
     const navigate = useNavigate();
 
     // Znajdź usługę na podstawie ID
-    const service = ServicesData.find((s) => s.id === Number(serviceId));
+    const service = ServicesData.find((s) => s.serviceId === Number(serviceId));
 
     // Hooki
     const [customerId, setCustomerId] = useState<number>(0);
@@ -74,12 +74,12 @@ export default function NewAppointment() {
     const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         const newAppointment: Appointment = {
-            id: 1, // Na razie stałe ID
+            appointmentId: 1, // Na razie stałe ID
             customerId,
             employeeId,
-            serviceId: service.id.toString(),
+            serviceId: service.serviceId,
             appointmentDateTime: new Date(appointmentDateTime),
-            durations: 0,
+            duration: 0,
             status: "do potwierdzenia",
             notes: "puste",
         };
@@ -91,7 +91,7 @@ export default function NewAppointment() {
 
     const handleEmployeeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedEmployeeId = Number(e.target.value);
-        const selectedEmployee = EmployeeData.find(employee => employee.id === selectedEmployeeId);
+        const selectedEmployee = EmployeeData.find(employee => employee.employeeId === selectedEmployeeId);
         if (selectedEmployee) {
             setEmployeeId(selectedEmployeeId);
             setEmployeeName(selectedEmployee.name);
@@ -133,7 +133,7 @@ export default function NewAppointment() {
                         <select value={employeeId} onChange={handleEmployeeChange} required>
                             <option value="">-- Wybierz pracownika --</option>
                             {EmployeeData.map((employee) => (
-                                <option key={employee.id} value={employee.id}>
+                                <option key={employee.employeeId} value={employee.employeeId}>
                                     {employee.name}
                                 </option>
                             ))}
