@@ -18,8 +18,8 @@ export default function Contact() {
             <div>
                 <p>Godziny otwarcia</p>
                 <ul>
-                    <li>Pon.-Pt. 9:00-19:00</li>
-                    <li>Sobota: 9:00-15:00</li>
+                    <li>Pon.-Pt. 10:00-20:00</li>
+                    <li>Sobota: 10:00-15:00</li>
                 </ul>
             </div>
             <div>

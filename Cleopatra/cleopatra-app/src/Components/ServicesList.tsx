@@ -34,7 +34,7 @@ export default function ServicesList() {
        <h1>Usługi</h1>
        <ul>
            {services.map((service) => (
-               <li key={service.id} className="service-item">
+               <li key={service.serviceId} className="service-item">
                    <strong>{service.name}</strong>  <br></br>{service.description}
                </li>
            ))}
