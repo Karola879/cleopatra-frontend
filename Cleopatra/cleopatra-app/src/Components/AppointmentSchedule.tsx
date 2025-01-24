@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { AppointmentData } from "../Data/AppointmentData";
 import { CustomerData } from "../Data/CustomerData";
 import { ServicesData } from "../Data/ServicesData";
+import '../Styles/AppointmentScheduleStyle.css';
 
 const EmployeeSchedule = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedAppointment, setSelectedAppointment] = useState<any | null>(null); // Zmienna do przechowywania wybranej wizyty
-  const employeeId = 1; // ID stałego pracownika (na razie na sztywno)
+  const employeeId = 3; // ID stałego pracownika (na razie na sztywno)
 
   // Funkcja do obsługi zmiany daty
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,11 +62,11 @@ const EmployeeSchedule = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className='app-schedule'>
       <h1>Harmonogram wizyt</h1>
 
       {/* Wybór daty */}
-      <div>
+      <div className='date-picker'>
         <label htmlFor="date-picker">Wybierz datę: </label>
         <input
           type="date"
@@ -76,7 +77,7 @@ const EmployeeSchedule = () => {
       </div>
 
       {/* Wyniki */}
-      <div style={{ marginTop: "20px" }}>
+      <div className='appointments'>
         {selectedDate && (
           <h2>
             Wizyty na dzień: {new Date(selectedDate).toLocaleDateString("pl-PL")}
@@ -92,7 +93,7 @@ const EmployeeSchedule = () => {
                 (s) => s.serviceId === appointment.serviceId
               );
               return (
-                <div>
+                <div className='app-list'>
                     <li
                   key={appointment.appointmentId}
                   onClick={() => handleAppointmentClick(appointment)} // Obsługuje kliknięcie na wizytę

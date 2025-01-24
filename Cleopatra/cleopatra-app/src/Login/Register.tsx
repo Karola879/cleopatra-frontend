@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import do przekierowania
+import '../Styles/RegisterStyle.css'; 
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -57,7 +58,7 @@ const Register: React.FC = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5227/api/account/register', {
+      const response = await fetch(`http://localhost:5227/api/account/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -65,6 +66,7 @@ const Register: React.FC = () => {
         body: JSON.stringify(payload) // Wysyłamy ConfirmPassword
       });
       console.log(payload);
+      console.log("Odpowiedź serwera:", response);
       if (!response.ok) {
         const errorData = await response.json();
         console.log("Błąd odpowiedzi:", errorData);
@@ -83,7 +85,7 @@ const Register: React.FC = () => {
       <h2>Rejestracja</h2>
       {error && <div className="error-message">{error}</div>}
       {success && <div className="success-message">{success}</div>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="register-form">
         <div className="form-group">
           <label htmlFor="name">Imię</label>
           <input
