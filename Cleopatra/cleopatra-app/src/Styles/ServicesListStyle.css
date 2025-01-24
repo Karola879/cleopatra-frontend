@@ -1,0 +1,67 @@
+/* ServicesListStyle.css */
+.person-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff; /* Tło dla listy */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Delikatny cień */
+    border-radius: 8px; /* Zaokrąglone rogi */
+  }
+  
+  .person-list h1 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #8B0000; /* Bordowy kolor nagłówka */
+  }
+  
+  .person-list ul {
+    list-style-type: none; /* Usuń domyślne stylowanie listy */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .person-list .service-item {
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #ddd; /* Delikatne obramowanie dla każdego elementu */
+    border-radius: 5px; /* Zaokrąglone rogi dla elementów */
+    background-color: #f9f9f9; /* Jasnoszare tło dla kontrastu */
+    transition: transform 0.2s, box-shadow 0.2s; /* Dodanie efektu hover */
+  }
+  
+  .person-list .service-item strong {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .person-list .service-item:hover {
+    transform: scale(1.02); /* Powiększenie przy najechaniu */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Intensywniejszy cień przy hover */
+  }
+  
+  /* Ładowanie i błąd */
+  .person-list div {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  /* Responsywność */
+  @media (max-width: 768px) {
+    .person-list {
+      padding: 15px;
+    }
+  
+    .person-list h1 {
+      font-size: 24px;
+    }
+  
+    .person-list .service-item {
+      font-size: 14px;
+    }
+  }
+  

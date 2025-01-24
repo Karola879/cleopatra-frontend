@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Service } from "../Models/Service";
 import axios from "axios";
+import '../Styles/PricesListStyle.css';
 
 export default function Prices() {
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ export default function Prices() {
     };
 
     return (
-      <div className="person-list">
+      <div className="prices-list">
           <h1>Cennik</h1>
           <ul>
               {services.map((service) => (

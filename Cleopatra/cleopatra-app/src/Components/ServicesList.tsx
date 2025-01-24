@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Service } from "../Models/Service";
 import axios from "axios";
+import '../Styles/ServicesListStyle.css';
 
 export default function ServicesList() {
 

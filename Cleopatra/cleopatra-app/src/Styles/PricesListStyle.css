@@ -1,0 +1,88 @@
+/* PricesListStyle.css */
+.prices-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff; /* Tło kontenera */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Delikatny cień */
+    border-radius: 8px; /* Zaokrąglone rogi */
+  }
+  
+  .prices-list h1 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #8B0000; /* Bordowy kolor nagłówka */
+  }
+  
+  .prices-list ul {
+    list-style-type: none; /* Usuń domyślne kropki listy */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .prices-list .service-item {
+    display: flex; /* Ustawienie flexbox dla elementów */
+    justify-content: space-between; /* Rozdzielenie przycisku i opisu */
+    align-items: center; /* Wyrównanie w pionie */
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #ddd; /* Delikatne obramowanie */
+    border-radius: 8px; /* Zaokrąglone rogi dla elementów listy */
+    background-color: #f9f9f9; /* Jasnoszare tło */
+    transition: transform 0.2s, box-shadow 0.2s; /* Efekty hover */
+  }
+  
+  .prices-list .service-item strong {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .prices-list .service-item button {
+    padding: 8px 16px;
+    background-color: #8B0000; /* Bordowy kolor przycisku */
+    color: #fff; /* Biały tekst */
+    border: none;
+    border-radius: 5px; /* Zaokrąglone rogi */
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s; /* Efekty hover */
+  }
+  
+  .prices-list .service-item button:hover {
+    background-color: #a00000; /* Jaśniejszy bordowy */
+    transform: scale(1.05); /* Powiększenie przy hover */
+  }
+  
+  .prices-list .service-item:hover {
+    transform: scale(1.02); /* Powiększenie elementu przy najechaniu */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Intensywniejszy cień */
+  }
+  
+  .prices-list .service-item button:active {
+    background-color: #6a0000; /* Ciemniejszy bordowy */
+  }
+  
+  /* Responsywność */
+  @media (max-width: 768px) {
+    .prices-list {
+      padding: 15px;
+    }
+  
+    .prices-list h1 {
+      font-size: 24px;
+    }
+  
+    .prices-list .service-item {
+      flex-direction: column; /* Ustawienie w kolumnie na małych ekranach */
+      align-items: flex-start; /* Wyrównanie do lewej */
+    }
+  
+    .prices-list .service-item button {
+      margin-top: 10px; /* Odstęp przycisku na mniejszych ekranach */
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+  }
+  

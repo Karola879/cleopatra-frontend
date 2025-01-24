@@ -1,0 +1,99 @@
+/* Ogólny kontener dla strony zespołu */
+.team-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff; /* Tło dla strony */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Delikatny cień */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    line-height: 1.6; /* Lepsza czytelność tekstu */
+  }
+  
+  /* Nagłówek sekcji głównej */
+  .team-page .header h1 {
+    font-size: 28px;
+    text-align: center;
+    color: #8B0000; /* Bordowy kolor nagłówka */
+    margin-bottom: 10px;
+  }
+  
+  .team-page .header p {
+    font-size: 16px;
+    text-align: justify;
+    margin-bottom: 20px;
+    color: #333; /* Ciemnoszary kolor tekstu */
+  }
+  
+  /* Lista członków zespołu */
+  .team-page .list {
+    margin-top: 20px;
+  }
+  
+  .team-page .list h3 {
+    font-size: 22px;
+    color: #8B0000; /* Bordowy kolor nagłówka */
+    margin-bottom: 10px;
+  }
+  
+  .team-page .list ul {
+    list-style-type: none; /* Usuń kropki */
+    padding: 0;
+  }
+  
+  .team-page .list li {
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background-color: #f9f9f9; /* Jasnoszare tło */
+    border: 1px solid #ddd; /* Obramowanie */
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s; /* Animacja hover */
+  }
+  
+  .team-page .list li:hover {
+    transform: scale(1.02); /* Powiększenie na hover */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Intensywniejszy cień */
+  }
+  
+  .team-page .list li p {
+    font-size: 16px;
+    margin-top: 8px;
+    color: #555; /* Neutralny kolor tekstu */
+  }
+  
+  /* Sekcja stopki */
+  .team-page .footer h3 {
+    font-size: 22px;
+    color: #8B0000; /* Bordowy kolor nagłówka */
+    margin-bottom: 10px;
+  }
+  
+  .team-page .footer p {
+    font-size: 16px;
+    text-align: justify;
+    margin-bottom: 15px;
+    color: #333; /* Ciemnoszary kolor tekstu */
+  }
+  
+  /* Responsywność */
+  @media (max-width: 768px) {
+    .team-page {
+      padding: 15px;
+    }
+  
+    .team-page .header h1 {
+      font-size: 24px;
+    }
+  
+    .team-page .list li {
+      padding: 8px 12px;
+    }
+  
+    .team-page .list li p {
+      font-size: 14px;
+    }
+  
+    .team-page .footer p {
+      font-size: 14px;
+    }
+  }
+  

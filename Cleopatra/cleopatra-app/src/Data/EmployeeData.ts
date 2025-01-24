@@ -2,7 +2,7 @@ import { Employee } from "../Models/Employee";
 
 export const EmployeeData: Employee[] = [
     {
-        employeeId: 1,
+        employeeId: 3,
         name: 'Marta',
         role: 'pracownik',
         email: 'martabeauty@mail.com',
@@ -11,7 +11,7 @@ export const EmployeeData: Employee[] = [
         scheduleId: 1,
     },
     {
-        employeeId: 2,
+        employeeId: 4,
         name: 'Anita',
         role: 'pracownik',
         email: 'anitabeauty@mail.com',
@@ -20,7 +20,7 @@ export const EmployeeData: Employee[] = [
         scheduleId: 2,
     },
     {
-        employeeId: 3,
+        employeeId: 5,
         name: 'Bartosz',
         role: 'pracownik',
         email: 'bartoszbeauty@mail.com',

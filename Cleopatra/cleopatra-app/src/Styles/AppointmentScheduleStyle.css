@@ -1,0 +1,115 @@
+/* Styl dla kontenera harmonogramu wizyt */
+.app-schedule {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .app-schedule h1 {
+    font-size: 32px;
+    color: #006400; /* Zielony kolor */
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  /* Styl dla wyboru daty */
+  .date-picker {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .date-picker label {
+    font-size: 16px;
+    margin-right: 10px;
+    align-self: center;
+  }
+  
+  .date-picker input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Styl dla listy wizyt */
+  .appointments {
+    margin-bottom: 30px;
+  }
+  
+  .appointments h2 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .app-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .app-list li {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .app-list li:hover {
+    background-color: #e0f7fa; /* Kolor tła po najechaniu */
+    transform: scale(1.02); /* Lekkie powiększenie przy najechaniu */
+  }
+  
+  .app-list li.selected {
+    background-color: #e0f7fa; /* Kolor tła wybranej wizyty */
+  }
+  
+  .app-list strong {
+    color: #006400; /* Kolor dla nagłówków */
+  }
+  
+  /* Styl dla przycisków */
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #006400;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #228b22; /* Zielony odcień po najechaniu */
+  }
+  
+  /* Styl dla komunikatu o braku wizyt */
+  .appointments p {
+    font-size: 18px;
+    color: #d8000c; /* Czerwony kolor dla komunikatu */
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* Styl dla przycisków po wybraniu wizyty */
+  button:disabled {
+    background-color: #bdbdbd;
+    cursor: not-allowed;
+  }
+  
+  /* Styl dla kontenera przycisków */
+  div > button {
+    display: inline-block;
+    margin: 10px;
+  }
+  

@@ -1,0 +1,73 @@
+/* MainPageStyle.css */
+.main-page {
+  background-color: #f9f9f9;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.main-page .content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.main-page h1 {
+  font-size: 36px;
+  text-align: center;
+  margin: 20px 0;
+  color: #8B0000;
+}
+
+.main-page h2 {
+  font-size: 28px;
+  margin: 20px 0;
+  color: #8B0000;
+}
+
+.main-page p {
+  font-size: 16px;
+  margin: 10px 0 20px;
+  text-align: justify;
+}
+
+.main-page ul, .main-page ol {
+  margin: 15px 20px;
+  padding-left: 40px;
+}
+
+.main-page ul li, .main-page ol li {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.main-page ul li {
+  list-style-type: disc;
+}
+
+.main-page ol li {
+  list-style-type: decimal;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .main-page h1 {
+    font-size: 28px;
+  }
+
+  .main-page h2 {
+    font-size: 22px;
+  }
+
+  .main-page p, .main-page ul li, .main-page ol li {
+    font-size: 14px;
+  }
+
+  .main-page .content {
+    padding: 15px;
+  }
+}

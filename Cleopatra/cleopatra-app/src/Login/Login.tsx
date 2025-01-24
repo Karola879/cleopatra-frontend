@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import do przekierowania
+import '../Styles/LoginStyles.css'; 
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -56,9 +57,11 @@ const Login: React.FC = () => {
   return (
     <div className="login-container">
       <h2>Logowanie</h2>
+      
       {error && <div className="error-message">{error}</div>}
       {success && <div className="success-message">{success}</div>}
-      <form onSubmit={handleSubmit}>
+      
+      <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -68,8 +71,10 @@ const Login: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            placeholder="Wpisz swój email"
           />
         </div>
+        
         <div className="form-group">
           <label htmlFor="password">Hasło</label>
           <input
@@ -79,12 +84,16 @@ const Login: React.FC = () => {
             value={formData.password}
             onChange={handleChange}
             required
+            placeholder="Wpisz swoje hasło"
           />
         </div>
-        <button type="submit" className="btn-submit">
-          Zaloguj się
-        </button>
+        
+        <button type="submit" className="btn-submit">Zaloguj się</button>
       </form>
+      
+      <p className="redirect-signup">
+        Nie masz jeszcze konta? <a href="/register">Zarejestruj się</a>
+      </p>
     </div>
   );
 };

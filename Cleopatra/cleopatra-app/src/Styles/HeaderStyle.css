@@ -1,13 +1,75 @@
+/* HeaderStyle.css */
 .header {
     display: flex;
-}
-
-.links {
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f8f9fa; /* Delikatny szary kolor */
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .links {
     display: flex;
-    margin-left: 20%;
-    gap: 30%;
-}
-
-.profile > div {
-    margin-bottom: 10%;
-}
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .links div {
+    position: relative;
+  }
+  
+  .links a {
+    text-decoration: none;
+    color: #007bff; /* Niebieski kolor */
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .links a:hover {
+    color: #0056b3; /* Ciemniejszy niebieski na hover */
+  }
+  
+  .profile {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .profile div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .profile a {
+    color: #28a745; /* Zielony kolor */
+    font-size: 16px;
+  }
+  
+  .profile a:hover {
+    color: #218838; /* Ciemniejszy zielony na hover */
+  }
+  
+  /* Responsywność */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .links {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  
+    .profile {
+      flex-direction: column;
+    }
+  }
+  
