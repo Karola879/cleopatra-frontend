@@ -1,72 +1,113 @@
-import React, { useState } from "react";
-import { AppointmentData } from "../Data/AppointmentData";
-import { CustomerData } from "../Data/CustomerData";
-import { ServicesData } from "../Data/ServicesData";
-import '../Styles/AppointmentScheduleStyle.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Customer } from "../Models/Customer";
+import { Service } from "../Models/Service";
+import "../Styles/AppointmentScheduleStyle.css";
+import { Appointment } from "../Models/Appointment";
+import moment from "moment";
 
-const EmployeeSchedule = () => {
+const AppointmentSchedule = () => {
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [selectedAppointment, setSelectedAppointment] = useState<any | null>(null); // Zmienna do przechowywania wybranej wizyty
-  const employeeId = 3; // ID stałego pracownika (na razie na sztywno)
+  const [selectedAppointment, setSelectedAppointment] = useState<any | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
 
-  // Funkcja do obsługi zmiany daty
+  const token = localStorage.getItem("token");
+  const employeeId = localStorage.getItem("userId");
+
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(event.target.value);
-    setSelectedAppointment(null); // Resetujemy wybraną wizytę po zmianie daty
+    setSelectedAppointment(null);
   };
 
-  // Funkcja filtrująca wizyty dla danego pracownika i wybranej daty
-  const filteredAppointments = AppointmentData.filter((appointment) => {
-    const appointmentDate = appointment.appointmentDateTime;
-
-    // Konwertujemy datę wizyty na format 'YYYY-MM-DD'
-    const appointmentDateStr = appointmentDate instanceof Date && !isNaN(appointmentDate.getTime())
-      ? appointmentDate.toISOString().split("T")[0]  // format YYYY-MM-DD
-      : null;
-
-    return (
-      appointment.employeeId === employeeId &&
-      appointmentDateStr === selectedDate // Porównanie tylko dat
-    );
-  });
-
-  // Sortowanie wizyt według godziny
-  const sortedAppointments = filteredAppointments.sort((a, b) => {
-    const timeA = a.appointmentDateTime.getTime();
-    const timeB = b.appointmentDateTime.getTime();
-    return timeA - timeB; // Sortowanie po czasie rosnąco
-  });
-
-  // Funkcja do obsługi kliknięcia w wizytę
   const handleAppointmentClick = (appointment: any) => {
     setSelectedAppointment(appointment);
   };
 
-  // Funkcje do obsługi przycisków
   const handleReschedule = () => {
     alert("Przełożono wizytę: " + selectedAppointment.appointmentId);
-    // Logika przełożenia wizyty
-    // Na przykład zmiana daty wizyty
   };
 
   const handleCancel = () => {
     alert("Odwołano wizytę: " + selectedAppointment.appointmentId);
-    // Logika odwołania wizyty
-    // Na przykład zmiana statusu wizyty na 'odwołana'
   };
 
   const handleConfirm = () => {
     alert("Potwierdzono wizytę: " + selectedAppointment.appointmentId);
-    // Logika potwierdzenia wizyty
-    // Na przykład zmiana statusu wizyty na 'potwierdzona'
+  };
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const appointmentsResponse = await axios.get(
+          `http://localhost:5227/api/Appointments/GetAppointments/${employeeId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const appointmentsWithDate = appointmentsResponse.data.map((appointment: any) => {
+          if (appointment.AppointmentDateTime) {
+            const correctedDateString = appointment.AppointmentDateTime.replace(" ", "T");
+            const parsedDate = new Date(correctedDateString);
+
+            return {
+              ...appointment,
+              AppointmentDateTime: parsedDate,
+            };
+          } else {
+            return appointment; // Zwracamy oryginalny obiekt, jeśli brak daty
+          }
+        });
+
+        setAppointments(appointmentsWithDate);
+
+        const customersResponse = await axios.get("http://localhost:5227/api/Customers", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setCustomers(customersResponse.data);
+
+        const servicesResponse = await axios.get("http://localhost:5227/api/Services", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setServices(servicesResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        if (axios.isAxiosError(error) && error.response) {
+          const { data, status } = error.response;
+          const errorDetails = data?.message || JSON.stringify(data);
+          setErrorMessage(`Błąd serwera (${status}): ${errorDetails}`);
+        } else {
+          setErrorMessage("Nie udało się pobrać danych. Spróbuj ponownie.");
+        }
+      }
+    };
+
+    fetchAppointments();
+  }, []);
+
+  const getCustomerName = (CustomerId: number) => {
+    const customer = customers.find((customer) => customer.CustomerId === CustomerId);
+    return customer ? customer.Name : "Nieznany klient";
+  };
+
+  const getServiceName = (ServiceId: number) => {
+    const service = services.find((service) => service.serviceId === ServiceId);
+    return service ? service.name : "Nieznana usługa";
   };
 
   return (
-    <div className='app-schedule'>
+    <div className="app-schedule">
       <h1>Harmonogram wizyt</h1>
 
-      {/* Wybór daty */}
-      <div className='date-picker'>
+      <div className="date-picker">
         <label htmlFor="date-picker">Wybierz datę: </label>
         <input
           type="date"
@@ -76,64 +117,55 @@ const EmployeeSchedule = () => {
         />
       </div>
 
-      {/* Wyniki */}
-      <div className='appointments'>
+      <div className="appointments">
         {selectedDate && (
-          <h2>
-            Wizyty na dzień: {new Date(selectedDate).toLocaleDateString("pl-PL")}
-          </h2>
+          <h2>Wizyty na dzień: {new Date(selectedDate).toLocaleDateString("pl-PL")}</h2>
         )}
-        {sortedAppointments.length > 0 ? (
+        {appointments.length > 0 ? (
           <ul>
-            {sortedAppointments.map((appointment) => {
-              const customer = CustomerData.find(
-                (c) => c.customerId === appointment.customerId
-              );
-              const service = ServicesData.find(
-                (s) => s.serviceId === appointment.serviceId
-              );
-              return (
-                <div className='app-list'>
-                    <li
-                  key={appointment.appointmentId}
-                  onClick={() => handleAppointmentClick(appointment)} // Obsługuje kliknięcie na wizytę
-                  style={{
-                    cursor: "pointer",
-                    marginBottom: "10px",
-                    padding: "10px",
-                    border: "1px solid #ccc",
-                    borderRadius: "5px",
-                    backgroundColor:
-                      selectedAppointment?.appointmentId === appointment.appointmentId
-                        ? "#e0f7fa"
-                        : "white", // Podświetlanie wybranej wizyty
-                  }}
-                >
-                  <strong>Godzina:</strong>{" "}
-                  {new Date(appointment.appointmentDateTime).toLocaleTimeString("pl-PL", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                  <br />
-                  <strong>Klient:</strong> {customer?.name}
-                  <br />
-                  <strong>Usługa:</strong> {service?.name}
-                  <br />
-                  <strong>Status:</strong> {appointment.status}
-                  <br />
-                  <strong>Notatki:</strong> {appointment.notes}
-                </li>
+            {appointments
+              .filter((appointment) => {
+                // Filtrujemy wizyty według wybranej daty
+                if (!selectedDate) return false;
+
+                const appointmentDate = moment(appointment.AppointmentDateTime).format("YYYY-MM-DD");
+                return appointmentDate === selectedDate;
+              })
+              .map((appointment) => (
+                <div className="app-list" key={appointment.AppointmentId}>
+                  <li
+                    onClick={() => handleAppointmentClick(appointment)}
+                    style={{
+                      cursor: "pointer",
+                      marginBottom: "10px",
+                      padding: "10px",
+                      border: "1px solid #ccc",
+                      borderRadius: "5px",
+                      backgroundColor:
+                        selectedAppointment?.appointmentId === appointment.AppointmentId
+                          ? "#e0f7fa"
+                          : "white",
+                    }}
+                  >
+                    <strong>Godzina:</strong>{" "}
+                    {moment(appointment.AppointmentDateTime).format("HH:mm")}
+                    <br />
+                    <strong>Klient:</strong> {getCustomerName(appointment.CustomerId)}
+                    <br />
+                    <strong>Usługa:</strong> {getServiceName(appointment.ServiceId)}
+                    <br />
+                    <strong>Status:</strong> {appointment.Status}
+                    <br />
+                    <strong>Notatki:</strong> {appointment.Notes}
+                  </li>
                 </div>
-                
-              );
-            })}
+              ))}
           </ul>
         ) : (
-          <p>Brak wizyt na wybrany dzień.</p>
+          <p>Brak wizyt.</p>
         )}
       </div>
 
-      {/* Wyświetlenie przycisków po wybraniu wizyty */}
       {selectedAppointment && (
         <div>
           <button onClick={handleReschedule}>Przełóż</button>
@@ -145,4 +177,4 @@ const EmployeeSchedule = () => {
   );
 };
 
-export default EmployeeSchedule;
+export default AppointmentSchedule;

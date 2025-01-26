@@ -1,7 +1,7 @@
 export interface Schedule {
-    id: number;
-    employeeId: number;
-    startDateTime: Date;
-    endDateTime: Date;
-    breakTimes: number;
+    ScheduleId: number;
+    EmployeeId: number;
+    StartDateTime: Date;
+    EndDateTime: Date;
+    BreakTimes: number;
 }

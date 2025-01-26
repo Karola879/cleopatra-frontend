@@ -45,6 +45,7 @@ const Login: React.FC = () => {
       // Zapisanie tokena w localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.role);
+      localStorage.setItem("userId", data.userId);
       console.log(data);
 
       // Po udanym logowaniu przekierowanie na stronę główną

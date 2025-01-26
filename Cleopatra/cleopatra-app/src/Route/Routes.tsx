@@ -23,7 +23,7 @@ export const routes: RouteObject[] = [
       { path: 'prices', element: <Prices /> },
       { path: 'newappointment/:serviceId', element: <NewAppointment /> },
       { path: 'team', element: <Team /> },
-      { path: 'appsch', element: <AppointmentSchedule /> },
+      { path: 'appointment-schedule', element: <AppointmentSchedule /> },
       { path: 'contact', element: <Contact /> },
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },

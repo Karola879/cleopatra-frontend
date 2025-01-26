@@ -1,10 +1,9 @@
 export interface Appointment {
-    appointmentId: number;
-    customerId: number;
-    employeeId: number;
-    serviceId: number;
-    appointmentDateTime: Date;
-    duration: number;
-    status: string;
-    notes: string;
+    AppointmentId: number;
+    CustomerId: number;
+    EmployeeId: number;
+    ServiceId: number;
+    AppointmentDateTime: Date;
+    Status: string;
+    Notes: string;
 }
