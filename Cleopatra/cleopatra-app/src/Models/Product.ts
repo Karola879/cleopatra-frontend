@@ -1,8 +1,8 @@
 export interface Product {
-    id: number;
-    name: string;
-    brand: string;
-    quantityInStock: number;
-    pricePerUnit: number;
-    lastRestockedDate: Date
+    ProductId: number;
+    Name: string;
+    Brand: string;
+    QuantityInStock: number;
+    PricePerUnit: number;
+    LastRestockedDate: Date
 }

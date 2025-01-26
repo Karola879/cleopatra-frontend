@@ -12,6 +12,11 @@ import Register from '../Login/Register';
 import AppointmentSchedule from '../Components/AppointmentSchedule';
 import EmployeeProfile from '../Components/EmployeeProfile'; // Import strony profilu pracownika
 import CustomerProfile from '../Components/CustomerProfile'; // Import strony profilu klienta
+import MoveAppointment from '../Components/MoveAppointment';
+import ProductsList from '../Components/ProductsList';
+import PastAppointments from "../Components/PastAppointmentsCustomer";
+import FutureAppointments from "../Components/FutureAppointmentsCustomer";
+
 
 export const routes: RouteObject[] = [
   {
@@ -24,11 +29,15 @@ export const routes: RouteObject[] = [
       { path: 'newappointment/:serviceId', element: <NewAppointment /> },
       { path: 'team', element: <Team /> },
       { path: 'appointment-schedule', element: <AppointmentSchedule /> },
+      { path: 'move-appointment', element: <MoveAppointment /> },
       { path: 'contact', element: <Contact /> },
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
-      { path: 'employee-profile', element: <EmployeeProfile /> }, // Ścieżka do profilu pracownika
-      { path: 'customer-profile', element: <CustomerProfile /> }, // Ścieżka do profilu klienta
+      { path: 'products', element: <ProductsList /> },
+      { path: 'employee-profile', element: <EmployeeProfile /> }, 
+      { path: 'customer-profile', element: <CustomerProfile /> },
+      { path: 'future-appointments', element: <FutureAppointments /> },
+      { path: 'history', element: <PastAppointments /> },
       { path: 'not-found', element: <NotFound /> },
       { path: '*', element: <Navigate replace to='/not-found' /> },
     ],
