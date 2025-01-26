@@ -43,9 +43,6 @@ export default function Header() {
           <Link to="/team">nasz zespol</Link>
         </div>
         <div>
-          <Link to="/appsch">harmonogram</Link>
-        </div>
-        <div>
           <Link to="/contact">kontakt</Link>
         </div>
         <div className="profile">

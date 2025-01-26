@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { EmployeeData } from "../Data/EmployeeData";
-import { ScheduleData } from "../Data/ScheduleData";
+import { Schedule } from "../Models/Schedule";
 
 export default function NewAppointment() {
     const { serviceId } = useParams<{ serviceId: string }>();
     const navigate = useNavigate();
     const [service, setService] = useState<{ serviceId: number; name: string; price: number } | null>(null);
 
-    // Stałe ID klienta
-    const customerId = 1;
-
     const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
 
-    // Hooki
+    const [employees, setEmployees] = useState<{ employeeId: number; name: string }[]>([]);
     const [employeeId, setEmployeeId] = useState<number>(0);
     const [employeeName, setEmployeeName] = useState<string>('');
     const [appointmentDateTime, setAppointmentDateTime] = useState<string>('');
@@ -22,13 +19,13 @@ export default function NewAppointment() {
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [availableDates, setAvailableDates] = useState<string[]>([]);
     const [timesByDate, setTimesByDate] = useState<Record<string, string[]>>({});
+    const [appointments, setAppointments] = useState<any[]>([]); // Wizyty pracownika
     const [appointmentConfirmed, setAppointmentConfirmed] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    // Pobierz dane usługi na podstawie ID
     useEffect(() => {
         const fetchService = async () => {
             try {
@@ -39,71 +36,118 @@ export default function NewAppointment() {
                 setErrorMessage("Nie udało się pobrać danych usługi.");
             }
         };
-
         fetchService();
     }, [serviceId]);
 
-    // Obsługa zmian pracownika i harmonogramu
+    useEffect(() => {
+        const fetchEmployees = async () => {
+            try {
+                const response = await axios.get("http://localhost:5227/api/Employees", {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                const employeeData = response.data.map((employee: any) => ({
+                    employeeId: employee.EmployeeId,
+                    name: employee.Name,
+                }));
+                setEmployees(employeeData);
+            } catch (error) {
+                console.error("Error fetching employees:", error);
+                setErrorMessage("Nie udało się pobrać danych pracowników.");
+            }
+        };
+        fetchEmployees();
+    }, [token]);
+
     useEffect(() => {
         if (employeeId) {
-            const schedule = ScheduleData.filter((s) => s.employeeId === employeeId);
-            const dates: string[] = [];
-            const timesByDate: Record<string, string[]> = {};
+            const fetchScheduleAndAppointments = async () => {
+                try {
+                    const [scheduleResponse, appointmentsResponse] = await Promise.all([
+                        axios.get("http://localhost:5227/api/Schedule", {
+                            headers: { Authorization: `Bearer ${token}` },
+                        }),
+                        axios.get(`http://localhost:5227/api/Appointments/GetAppointments/${employeeId}`, {
+                            headers: { Authorization: `Bearer ${token}` },
+                        }),
+                    ]);
 
-            schedule.forEach((s) => {
-                const start = s.startDateTime;
-                const end = s.endDateTime;
+                    const scheduleData: Schedule[] = scheduleResponse.data.filter(
+                        (schedule: Schedule) => schedule.EmployeeId === employeeId
+                    );
 
-                let currentTime = new Date(start.getTime());
-                while (currentTime < end) {
-                    const availableDate = currentTime.toLocaleDateString('sv-SE');
-                    if (availableDate >= tomorrow.toLocaleDateString('sv-SE')) {
-                        if (!dates.includes(availableDate)) {
-                            dates.push(availableDate);
+                    const employeeAppointments = appointmentsResponse.data.map((appointment: any) => ({
+                        dateTime: new Date(appointment.AppointmentDateTime),
+                    }));
+                    setAppointments(employeeAppointments);
+
+                    const dates: string[] = [];
+                    const timesByDate: Record<string, string[]> = {};
+
+                    scheduleData.forEach((s) => {
+                        const start = new Date(s.StartDateTime);
+                        const end = new Date(s.EndDateTime);
+
+                        let currentTime = new Date(start.getTime());
+                        while (currentTime < end) {
+                            const availableDate = currentTime.toLocaleDateString('sv-SE');
+                            if (availableDate >= tomorrow.toLocaleDateString('sv-SE')) {
+                                if (!dates.includes(availableDate)) {
+                                    dates.push(availableDate);
+                                }
+
+                                const time = currentTime.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+                                if (!timesByDate[availableDate]) {
+                                    timesByDate[availableDate] = [];
+                                }
+                                timesByDate[availableDate].push(time);
+                            }
+                            currentTime.setMinutes(currentTime.getMinutes() + 60);
                         }
+                    });
 
-                        const time = currentTime.toLocaleString('sv-SE').slice(11, 16);
-                        if (!timesByDate[availableDate]) {
-                            timesByDate[availableDate] = [];
-                        }
-                        timesByDate[availableDate].push(time);
+                    setAvailableDates(dates);
+                    setTimesByDate(timesByDate);
+                    if (dates.length > 0) {
+                        setSelectedDate(dates[0]);
+                        setAvailableTimes(timesByDate[dates[0]]);
                     }
-                    currentTime.setMinutes(currentTime.getMinutes() + 60);
+                } catch (error) {
+                    console.error("Error fetching schedule or appointments:", error);
+                    setErrorMessage("Nie udało się pobrać danych harmonogramu lub wizyt.");
                 }
-            });
-
-            setAvailableDates(dates);
-            setTimesByDate(timesByDate);
-            if (dates.length > 0) {
-                setSelectedDate(dates[0]);
-                setAvailableTimes(timesByDate[dates[0]]);
-            }
+            };
+            fetchScheduleAndAppointments();
         }
-    }, [employeeId]);
+    }, [employeeId, token]);
+
+    useEffect(() => {
+        if (selectedDate && timesByDate[selectedDate]) {
+            const bookedTimes = appointments
+                .filter((appointment) => appointment.dateTime.toLocaleDateString('sv-SE') === selectedDate)
+                .map((appointment) => appointment.dateTime.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' }));
+            const filteredTimes = timesByDate[selectedDate].filter((time) => !bookedTimes.includes(time));
+            setAvailableTimes(filteredTimes);
+        }
+    }, [selectedDate, appointments, timesByDate]);
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
         if (!service) {
             setErrorMessage("Nie wybrano usługi.");
             return;
         }
 
         const newAppointment = {
-            customerId,
+            customerId: userId,
             employeeId,
             appointmentDateTime,
-            duration: 50, // Przyjęty czas trwania wizyty
-            serviceType: service.name,
+            serviceId: service.serviceId,
         };
 
         try {
             const response = await axios.post("http://localhost:5227/api/Appointments/CreateAppointment", newAppointment, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                headers: { Authorization: `Bearer ${token}` },
             });
-            console.log("Appointment created:", response.data);
             setAppointmentConfirmed(true);
         } catch (error) {
             console.error("Error creating appointment:", error);
@@ -113,7 +157,7 @@ export default function NewAppointment() {
 
     const handleEmployeeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedEmployeeId = Number(e.target.value);
-        const selectedEmployee = EmployeeData.find(employee => employee.employeeId === selectedEmployeeId);
+        const selectedEmployee = employees.find(employee => employee.employeeId === selectedEmployeeId);
         if (selectedEmployee) {
             setEmployeeId(selectedEmployeeId);
             setEmployeeName(selectedEmployee.name);
@@ -123,7 +167,6 @@ export default function NewAppointment() {
     const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedDate = e.target.value;
         setSelectedDate(selectedDate);
-        setAvailableTimes(timesByDate[selectedDate] || []);
     };
 
     const handleTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -139,7 +182,6 @@ export default function NewAppointment() {
             {appointmentConfirmed ? (
                 <div className="confirmation-message">
                     <h2>Wizyta umówiona!</h2>
-                    <p>Wizyta została pomyślnie dodana.</p>
                     <button onClick={() => navigate("/prices")}>Powrót do cennika</button>
                 </div>
             ) : (
@@ -147,17 +189,11 @@ export default function NewAppointment() {
                     <h2>Umów wizytę</h2>
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                     <div>
-                        <label>Klient ID:</label>
-                        <input type="number" value={customerId} disabled />
-                    </div>
-                    <div>
                         <label>Wybierz pracownika:</label>
                         <select value={employeeId} onChange={handleEmployeeChange} required>
                             <option value="">-- Wybierz pracownika --</option>
-                            {EmployeeData.map((employee) => (
-                                <option key={employee.employeeId} value={employee.employeeId}>
-                                    {employee.name}
-                                </option>
+                            {employees.map((employee) => (
+                                <option key={employee.employeeId} value={employee.employeeId}>{employee.name}</option>
                             ))}
                         </select>
                     </div>
@@ -166,25 +202,22 @@ export default function NewAppointment() {
                         <select value={selectedDate} onChange={handleDateChange} required>
                             <option value="">-- Wybierz datę --</option>
                             {availableDates.map((date, index) => (
-                                <option key={index} value={date}>
-                                    {date}
-                                </option>
+                                <option key={index} value={date}>{date}</option>
                             ))}
                         </select>
+                        {selectedDate && (
+                            <>
+                            <br></br>
+                                <label>Wybierz godzinę:</label>
+                                <select value={appointmentDateTime} onChange={handleTimeChange} required>
+                                    <option value="">-- Wybierz godzinę --</option>
+                                    {availableTimes.map((time, index) => (
+                                        <option key={index} value={`${selectedDate}T${time}`}>{time}</option>
+                                    ))}
+                                </select>
+                            </>
+                        )}
                     </div>
-                    {selectedDate && (
-                        <div>
-                            <label>Wybierz godzinę:</label>
-                            <select value={appointmentDateTime} onChange={handleTimeChange} required>
-                                <option value="">-- Wybierz godzinę --</option>
-                                {availableTimes.map((time, index) => (
-                                    <option key={index} value={`${selectedDate}T${time}`}>
-                                        {time}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
                     <div>
                         <label>Nazwa usługi:</label>
                         <input type="text" value={service.name} disabled />
@@ -193,12 +226,7 @@ export default function NewAppointment() {
                         <label>Cena:</label>
                         <input type="text" value={service.price} disabled />
                     </div>
-                    <div>
-                        <button type="submit">Umów</button>
-                        <button type="button" onClick={() => navigate("/prices")}>
-                            Anuluj
-                        </button>
-                    </div>
+                    <button type="submit">Umów</button>
                 </form>
             )}
         </div>
