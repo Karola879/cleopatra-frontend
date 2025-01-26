@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import nawigacji
 import { Customer } from "../Models/Customer";
 import { Service } from "../Models/Service";
 import "../Styles/AppointmentScheduleStyle.css";
@@ -16,6 +17,7 @@ const AppointmentSchedule = () => {
 
   const token = localStorage.getItem("token");
   const employeeId = localStorage.getItem("userId");
+  const navigate = useNavigate(); // Hook nawigacji
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(event.target.value);
@@ -27,16 +29,21 @@ const AppointmentSchedule = () => {
   };
 
   const handleReschedule = () => {
-    alert("Przełożono wizytę: " + selectedAppointment.appointmentId);
+    if (selectedAppointment) {
+      navigate(`/move-appointment`, {
+        state: { appointmentId: selectedAppointment.AppointmentId },
+      });
+    }
   };
 
-  const handleCancel = () => {
-    alert("Odwołano wizytę: " + selectedAppointment.appointmentId);
+  const handleDelete = () => {
+    if (selectedAppointment) {
+      navigate(`/move-appointment`, {
+        state: { appointmentId: selectedAppointment.AppointmentId },
+      });
+    }
   };
-
-  const handleConfirm = () => {
-    alert("Potwierdzono wizytę: " + selectedAppointment.appointmentId);
-  };
+  
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -59,7 +66,7 @@ const AppointmentSchedule = () => {
               AppointmentDateTime: parsedDate,
             };
           } else {
-            return appointment; // Zwracamy oryginalny obiekt, jeśli brak daty
+            return appointment;
           }
         });
 
@@ -125,7 +132,6 @@ const AppointmentSchedule = () => {
           <ul>
             {appointments
               .filter((appointment) => {
-                // Filtrujemy wizyty według wybranej daty
                 if (!selectedDate) return false;
 
                 const appointmentDate = moment(appointment.AppointmentDateTime).format("YYYY-MM-DD");
@@ -166,13 +172,13 @@ const AppointmentSchedule = () => {
         )}
       </div>
 
-      {selectedAppointment && (
-        <div>
-          <button onClick={handleReschedule}>Przełóż</button>
-          <button onClick={handleCancel}>Odwołaj</button>
-          <button onClick={handleConfirm}>Potwierdź</button>
-        </div>
-      )}
+      {selectedAppointment && moment(selectedAppointment.AppointmentDateTime).isAfter(moment()) && (
+  <div>
+    <button onClick={handleReschedule}>Przełóż</button>
+    <button onClick={handleDelete}>Odwołaj</button>
+    <button>Potwierdź</button>
+  </div>
+)}
     </div>
   );
 };

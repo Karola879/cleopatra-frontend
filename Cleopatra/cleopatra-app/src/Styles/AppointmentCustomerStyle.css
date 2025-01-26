@@ -1,0 +1,63 @@
+/* Główna sekcja komponentu */
+.client-appointments {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .client-appointments h2 {
+    text-align: center;
+    color: #006400; /* Zielony kolor nagłówka */
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  /* Lista wizyt */
+  .client-appointments ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .client-appointments li {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 15px;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  
+  .client-appointments li:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02); /* Lekkie powiększenie na hover */
+  }
+  
+  .client-appointments li strong {
+    color: #006400; /* Zielony kolor dla nagłówków w wizytach */
+    font-weight: bold;
+  }
+  
+  /* Styl komunikatów (ładowanie, brak wizyt, błąd) */
+  .client-appointments div {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  
+  .client-appointments .loading {
+    color: #006400;
+  }
+  
+  .client-appointments .error-message {
+    color: #d8000c;
+  }
+  
+  .client-appointments .no-appointments {
+    color: #555;
+    font-style: italic;
+  }
+  
