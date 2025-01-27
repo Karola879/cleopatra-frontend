@@ -19,14 +19,91 @@
 .main-page h1 {
   font-size: 36px;
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 0;/* HomePageStyle.css */
+
+  /* Styl dla głównej strony */
+  .home-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styl dla głównej treści */
+  .home-content {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Nagłówek */
+  .home-title {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Wprowadzenie */
+  .home-intro, .home-services, .home-safety, .home-atmosphere, .home-conclusion, .home-reservation {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  /* Lista usług */
+  .services-list {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  
+  .service-item {
+    margin-bottom: 10px;
+  }
+  
+  /* Nagłówek sekcji "Dlaczego warto wybrać..." */
+  .why-choose-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+  /* Lista powodów */
+  .reasons-list {
+    list-style-type: decimal;
+    margin-left: 20px;
+  }
+  
+  .reason-item {
+    margin-bottom: 10px;
+  }
+  
+  /* Stylizacja dla zakończenia */
+  .home-conclusion, .home-reservation {
+    font-size: 1.1rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Dodatkowe style dla ogólnego wyglądu */
+  .home-page {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  .home-content {
+    padding: 20px;
+  }
+  
   color: #8B0000;
 }
 
 .main-page h2 {
   font-size: 28px;
   margin: 20px 0;
-  color: #8B0000;
+  color: #555
 }
 
 .main-page p {

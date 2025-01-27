@@ -35,8 +35,8 @@ export default function Prices() {
         fetchServices();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
+    if (loading) return <div className="loading">Loading...</div>;
+    if (error) return <div className="error-message">Error: {error}</div>;
 
     const handleScheduleClick = (serviceId: number) => {
         const token = localStorage.getItem("token");
@@ -52,16 +52,19 @@ export default function Prices() {
 
     return (
         <div className="prices-list">
-            <h1>Cennik</h1>
-            <ul>
+            <h1 className="prices-title">Cennik</h1>
+            <ul className="service-list">
                 {services.map((service) => (
                     <li key={service.serviceId} className="service-item">
-                        <strong>{service.name}</strong> <br />
-                        Czas trwania: 50 minut <br />
-                        Cena: {service.price} zł <br />
+                        <strong className="service-name">{service.name}</strong><br />
+                        <span className="service-duration">Czas trwania: 50 minut</span><br />
+                        <span className="service-price">Cena: {service.price} zł</span><br />
                         {/* Show the button only if the user is not an Admin */}
                         {!isAdmin && (
-                            <button onClick={() => handleScheduleClick(service.serviceId)}>
+                            <button
+                                onClick={() => handleScheduleClick(service.serviceId)}
+                                className="schedule-button"
+                            >
                                 Umów usługę
                             </button>
                         )}

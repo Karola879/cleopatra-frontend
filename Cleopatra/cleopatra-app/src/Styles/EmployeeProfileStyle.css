@@ -1,0 +1,70 @@
+.employee-profile {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    padding: 40px 20px;
+    margin: 0;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.employee-profile hi {
+    color: #222;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+}
+
+/* Przyciski */
+.employee-profile .btn {
+    background-color: #6f4f1e; /* Złoty kolor */
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    margin: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+  }
+  
+  .employee-profile .btn:hover {
+    background-color: #4e3b1f; /* Ciemniejszy złoty */
+    transform: translateY(-3px); /* Animacja przy hoverze */
+  }
+  
+  .employee-profile .btn:active {
+    transform: translateY(1px); /* Animacja przy kliknięciu */
+  }
+  
+  /* Media queries dla responsywności */
+  @media (max-width: 768px) {
+    .employee-profile {
+      padding: 30px 15px;
+    }
+  
+    .employee-profile .btn {
+      width: 100%;
+      padding: 12px 0;
+      font-size: 1rem;
+    }
+  
+    .employee-profile h1 {
+      font-size: 1.6rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .employee-profile h1 {
+      font-size: 1.4rem;
+    }
+  
+    .employee-profile .btn {
+      font-size: 0.9rem;
+      padding: 10px 0;
+    }
+  }
+  

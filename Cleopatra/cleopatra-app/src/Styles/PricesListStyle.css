@@ -1,88 +1,134 @@
 /* PricesListStyle.css */
+
+/* Główne tło dla listy cennika */
 .prices-list {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff; /* Tło kontenera */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Delikatny cień */
-    border-radius: 8px; /* Zaokrąglone rogi */
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  padding: 40px 20px;
+  margin: 0 auto;
+  max-width: 800px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tytuł cennika */
+.prices-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #222;
+  margin-bottom: 30px;
+}
+
+/* Lista usług */
+.service-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Elementy usług */
+.service-item {
+  background-color: #fff;
+  margin: 10px 0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.service-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.service-duration,
+.service-price {
+  font-size: 1rem;
+  color: #555;
+}
+
+.schedule-button {
+  background-color: #6f4f1e; /* Złoty kolor */
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.schedule-button:hover {
+  background-color: #4e3b1f; /* Ciemniejszy złoty */
+  transform: translateY(-3px);
+}
+
+.schedule-button:active {
+  transform: translateY(1px); /* Animacja przy kliknięciu */
+}
+
+/* Styl ładowania */
+.loading {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+  padding: 20px;
+}
+
+/* Styl błędu */
+.error-message {
+  font-size: 1.2rem;
+  color: #e74c3c;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .prices-list {
+    padding: 30px 15px;
   }
-  
-  .prices-list h1 {
-    font-size: 28px;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #8B0000; /* Bordowy kolor nagłówka */
+
+  .prices-title {
+    font-size: 1.6rem;
   }
-  
-  .prices-list ul {
-    list-style-type: none; /* Usuń domyślne kropki listy */
-    padding: 0;
-    margin: 0;
-  }
-  
-  .prices-list .service-item {
-    display: flex; /* Ustawienie flexbox dla elementów */
-    justify-content: space-between; /* Rozdzielenie przycisku i opisu */
-    align-items: center; /* Wyrównanie w pionie */
-    margin: 15px 0;
+
+  .service-item {
     padding: 15px;
-    border: 1px solid #ddd; /* Delikatne obramowanie */
-    border-radius: 8px; /* Zaokrąglone rogi dla elementów listy */
-    background-color: #f9f9f9; /* Jasnoszare tło */
-    transition: transform 0.2s, box-shadow 0.2s; /* Efekty hover */
   }
-  
-  .prices-list .service-item strong {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 5px;
+
+  .service-name {
+    font-size: 1.3rem;
   }
-  
-  .prices-list .service-item button {
-    padding: 8px 16px;
-    background-color: #8B0000; /* Bordowy kolor przycisku */
-    color: #fff; /* Biały tekst */
-    border: none;
-    border-radius: 5px; /* Zaokrąglone rogi */
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s, transform 0.2s; /* Efekty hover */
+
+  .schedule-button {
+    font-size: 0.9rem;
+    padding: 10px 15px;
   }
-  
-  .prices-list .service-item button:hover {
-    background-color: #a00000; /* Jaśniejszy bordowy */
-    transform: scale(1.05); /* Powiększenie przy hover */
+}
+
+@media (max-width: 480px) {
+  .prices-list {
+    padding: 20px 10px;
   }
-  
-  .prices-list .service-item:hover {
-    transform: scale(1.02); /* Powiększenie elementu przy najechaniu */
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Intensywniejszy cień */
+
+  .prices-title {
+    font-size: 1.4rem;
   }
-  
-  .prices-list .service-item button:active {
-    background-color: #6a0000; /* Ciemniejszy bordowy */
+
+  .service-item {
+    padding: 10px;
   }
-  
-  /* Responsywność */
-  @media (max-width: 768px) {
-    .prices-list {
-      padding: 15px;
-    }
-  
-    .prices-list h1 {
-      font-size: 24px;
-    }
-  
-    .prices-list .service-item {
-      flex-direction: column; /* Ustawienie w kolumnie na małych ekranach */
-      align-items: flex-start; /* Wyrównanie do lewej */
-    }
-  
-    .prices-list .service-item button {
-      margin-top: 10px; /* Odstęp przycisku na mniejszych ekranach */
-      padding: 6px 12px;
-      font-size: 12px;
-    }
+
+  .service-name {
+    font-size: 1.2rem;
   }
-  
+
+  .schedule-button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}

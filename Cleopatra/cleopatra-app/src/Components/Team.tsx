@@ -14,7 +14,7 @@ export default function Team(){
                 <h3>Poznaj nas bliżej</h3>
                 <ul>
                     <li>
-                        <img src="/images/marta.jpg" alt="Marta" />
+                        <img src="/Pictures/kobieta1.jpg" alt="Marta" width="50%"/>
                         <div className="info">
                             <strong>Marta:</strong>
                             <p>
@@ -23,7 +23,7 @@ export default function Team(){
                         </div>
                     </li>
                     <li>
-                        <img src="/images/anita.jpg" alt="Anita" />
+                        <img src="/Pictures/kobieta2.jpg" alt="Anita" width="50%"/>
                         <div className="info">
                             <strong>Anita:</strong>
                             <p>
@@ -32,7 +32,7 @@ export default function Team(){
                         </div>
                     </li>
                     <li>
-                        <img src="/images/bartosz.jpg" alt="Bartosz" />
+                        <img src="/Pictures/mężczyzna1.jpg" alt="Bartosz" width="50%"/>
                         <div className="info">
                             <strong>Bartosz:</strong>
                             <p>

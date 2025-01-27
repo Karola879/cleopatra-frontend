@@ -3,5 +3,4 @@ export interface Schedule {
     EmployeeId: number;
     StartDateTime: Date;
     EndDateTime: Date;
-    BreakTimes: number;
 }

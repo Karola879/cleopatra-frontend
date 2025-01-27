@@ -1,75 +1,88 @@
 /* HeaderStyle.css */
+
+/* Podstawowe style dla nagłówka */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f8f9fa; /* Delikatny szary kolor */
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .links {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
-  
-  .links div {
-    position: relative;
-  }
-  
-  .links a {
-    text-decoration: none;
-    color: #007bff; /* Niebieski kolor */
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-  
-  .links a:hover {
-    color: #0056b3; /* Ciemniejszy niebieski na hover */
-  }
-  
-  .profile {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .profile div {
-    display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333; /* Ciemne tło */
+  padding: 20px 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo-img {
+  width: 150px; /* Dostosuj do rozmiaru logo */
+  border-radius: 50%;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #6f4f1e; /* Złoty kolor przy hoverze */
+}
+
+.profile-links {
+  display: flex;
+  align-items: center;
+}
+
+.profile-link, .auth-link, .logout-link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+  margin-left: 20px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.profile-link:hover, .auth-link:hover, .logout-link:hover {
+  color: #6f4f1e; /* Złoty kolor przy hoverze */
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .header {
     flex-direction: column;
-    gap: 5px;
+    align-items: flex-start;
+    padding: 20px;
   }
-  
-  .profile a {
-    color: #28a745; /* Zielony kolor */
-    font-size: 16px;
+
+  .navigation {
+    flex-direction: column;
+    margin-top: 20px;
   }
-  
-  .profile a:hover {
-    color: #218838; /* Ciemniejszy zielony na hover */
+
+  .nav-links {
+    flex-direction: column;
   }
-  
-  /* Responsywność */
-  @media (max-width: 768px) {
-    .header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .links {
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-  
-    .profile {
-      flex-direction: column;
-    }
+
+  .nav-links li {
+    margin: 10px 0;
   }
-  
+
+  .profile-links {
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,110 @@
+/* NewProductStyle.css */
+
+/* Główna kontener formularza */
+.new-product-container {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    padding: 40px 20px;
+    margin: 0 auto;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-title {
+    text-align: center;
+    color: #222;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Grupa formularza */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-input:focus {
+    border-color: #6f4f1e; /* Złoty kolor */
+    outline: none;
+  }
+  
+  .submit-btn {
+    background-color: #6f4f1e; /* Złoty kolor */
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #4e3b1f; /* Ciemniejszy złoty */
+    transform: translateY(-3px); /* Animacja przy hoverze */
+  }
+  
+  .submit-btn:active {
+    transform: translateY(1px); /* Animacja przy kliknięciu */
+  }
+  
+  /* Responsywność */
+  @media (max-width: 768px) {
+    .new-product-container {
+      padding: 30px 15px;
+    }
+  
+    .form-title {
+      font-size: 1.6rem;
+    }
+  
+    .form-input,
+    .submit-btn {
+      font-size: 1rem;
+      padding: 12px 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .new-product-container {
+      padding: 20px 10px;
+    }
+  
+    .form-title {
+      font-size: 1.4rem;
+    }
+  
+    .form-input,
+    .submit-btn {
+      font-size: 0.9rem;
+    }
+  }
+  
