@@ -57,14 +57,14 @@ const Login: React.FC = () => {
 
   return (
     <div className="login-container">
-      <h2>Logowanie</h2>
+      <h2 className="login-title">Logowanie</h2>
       
       {error && <div className="error-message">{error}</div>}
       {success && <div className="success-message">{success}</div>}
       
       <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="form-label">Email</label>
           <input
             type="email"
             id="email"
@@ -73,11 +73,12 @@ const Login: React.FC = () => {
             onChange={handleChange}
             required
             placeholder="Wpisz swój email"
+            className="form-input"
           />
         </div>
         
         <div className="form-group">
-          <label htmlFor="password">Hasło</label>
+          <label htmlFor="password" className="form-label">Hasło</label>
           <input
             type="password"
             id="password"
@@ -86,6 +87,7 @@ const Login: React.FC = () => {
             onChange={handleChange}
             required
             placeholder="Wpisz swoje hasło"
+            className="form-input"
           />
         </div>
         

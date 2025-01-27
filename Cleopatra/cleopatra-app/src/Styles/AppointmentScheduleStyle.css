@@ -1,115 +1,164 @@
-/* Styl dla kontenera harmonogramu wizyt */
+/* AppointmentScheduleStyle.css */
+
+/* Ogólne style */
 .app-schedule {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .app-schedule h1 {
-    font-size: 32px;
-    color: #006400; /* Zielony kolor */
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  /* Styl dla wyboru daty */
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin: 0;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  color: #222; /* Ciemny kolor tekstu */
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Date picker styles */
+.date-picker {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #6f4f1e; /* Złota linia pod datą */
+  padding-bottom: 10px;
+}
+
+.date-picker label {
+  font-size: 1.2rem;
+  color: #6f4f1e; /* Złoty kolor */
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.date-picker input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #6f4f1e; /* Złota ramka */
+  border-radius: 5px;
+  width: 150px;
+  max-width: 100%;
+  background-color: #fff;
+}
+
+/* Appointment list styles */
+.appointments {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.appointments ul {
+  padding: 0;
+  list-style-type: none;
+  width: 100%;
+  max-width: 800px;
+}
+
+.app-list {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Złote akcenty na wizytach */
+.app-list:hover {
+  background-color: #f0f0f0;
+  border-left: 4px solid #6f4f1e; /* Złoty pasek po lewej stronie przy hoverze */
+}
+
+.app-list.selected {
+  background-color: #e0f7fa;
+  border-left: 4px solid #6f4f1e;
+}
+
+.app-list strong {
+  color: #222;
+  font-weight: bold;
+}
+
+.app-list .notes {
+  color: #777;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Buttons for rescheduling, deleting, confirming */
+button {
+  background-color: #6f4f1e; /* Złoty odcień */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: #4e3b1f; /* Ciemniejszy złoty */
+  transform: translateY(-3px); /* Lekka animacja przy hoverze */
+}
+
+button:active {
+  transform: translateY(1px); /* Lekka animacja przy kliknięciu */
+}
+
+/* Styl dla przycisku "Potwierdź" */
+button:last-child {
+  background-color: #222; /* Czerń dla potwierdzenia */
+}
+
+button:last-child:hover {
+  background-color: #444; /* Ciemniejsza czerń */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
   .date-picker {
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .date-picker label {
-    font-size: 16px;
-    margin-right: 10px;
-    align-self: center;
-  }
-  
-  .date-picker input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  /* Styl dla listy wizyt */
+
   .appointments {
-    margin-bottom: 30px;
+    padding: 10px;
   }
-  
-  .appointments h2 {
-    font-size: 24px;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
+
   .app-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    padding: 10px;
+    font-size: 0.9rem;
   }
-  
-  .app-list li {
-    margin-bottom: 15px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: white;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  .app-list li:hover {
-    background-color: #e0f7fa; /* Kolor tła po najechaniu */
-    transform: scale(1.02); /* Lekkie powiększenie przy najechaniu */
-  }
-  
-  .app-list li.selected {
-    background-color: #e0f7fa; /* Kolor tła wybranej wizyty */
-  }
-  
-  .app-list strong {
-    color: #006400; /* Kolor dla nagłówków */
-  }
-  
-  /* Styl dla przycisków */
+
   button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #006400;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    transition: background-color 0.3s;
+    width: 100%;
+    padding: 12px;
   }
-  
-  button:hover {
-    background-color: #228b22; /* Zielony odcień po najechaniu */
+}
+
+@media (max-width: 480px) {
+  .app-schedule {
+    padding: 15px;
   }
-  
-  /* Styl dla komunikatu o braku wizyt */
-  .appointments p {
-    font-size: 18px;
-    color: #d8000c; /* Czerwony kolor dla komunikatu */
-    text-align: center;
-    font-weight: bold;
+
+  h1 {
+    font-size: 1.6rem;
   }
-  
-  /* Styl dla przycisków po wybraniu wizyty */
-  button:disabled {
-    background-color: #bdbdbd;
-    cursor: not-allowed;
+
+  .date-picker input {
+    width: 100%;
   }
-  
-  /* Styl dla kontenera przycisków */
-  div > button {
-    display: inline-block;
-    margin: 10px;
-  }
-  
+}

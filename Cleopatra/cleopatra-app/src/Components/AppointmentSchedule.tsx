@@ -30,20 +30,44 @@ const AppointmentSchedule = () => {
 
   const handleReschedule = () => {
     if (selectedAppointment) {
-      navigate(`/move-appointment`, {
+      navigate(`/move-appointment-employee`, {
         state: { appointmentId: selectedAppointment.AppointmentId },
       });
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (selectedAppointment) {
-      navigate(`/move-appointment`, {
-        state: { appointmentId: selectedAppointment.AppointmentId },
-      });
+      try {
+        const response = await axios.delete(
+          `http://localhost:5227/api/Appointments/CancelAppointment/${selectedAppointment.AppointmentId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          alert("Wizyta została pomyślnie odwołana.");
+          setAppointments((prevAppointments) =>
+            prevAppointments.filter(
+              (appointment) => appointment.AppointmentId !== selectedAppointment.AppointmentId
+            )
+          );
+          setSelectedAppointment(null); // Zresetuj zaznaczoną wizytę
+        }
+      } catch (error) {
+        console.error("Błąd podczas usuwania wizyty:", error);
+        if (axios.isAxiosError(error) && error.response) {
+          const { data, status } = error.response;
+          setErrorMessage(`Błąd serwera (${status}): ${data?.message || "Spróbuj ponownie."}`);
+        } else {
+          setErrorMessage("Wystąpił błąd. Spróbuj ponownie.");
+        }
+      }
     }
   };
-  
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -148,7 +172,7 @@ const AppointmentSchedule = () => {
                       border: "1px solid #ccc",
                       borderRadius: "5px",
                       backgroundColor:
-                        selectedAppointment?.appointmentId === appointment.AppointmentId
+                        selectedAppointment?.AppointmentId === appointment.AppointmentId
                           ? "#e0f7fa"
                           : "white",
                     }}
@@ -173,12 +197,12 @@ const AppointmentSchedule = () => {
       </div>
 
       {selectedAppointment && moment(selectedAppointment.AppointmentDateTime).isAfter(moment()) && (
-  <div>
-    <button onClick={handleReschedule}>Przełóż</button>
-    <button onClick={handleDelete}>Odwołaj</button>
-    <button>Potwierdź</button>
-  </div>
-)}
+        <div>
+          <button onClick={handleReschedule}>Przełóż</button>
+          <button onClick={handleDelete}>Odwołaj</button>
+          <button>Potwierdź</button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,63 +1,88 @@
-/* Główna sekcja komponentu */
+/* AppointmentCustomerStyle.css */
+
+/* Kontener dla wszystkich wizyt */
 .client-appointments {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .client-appointments h2 {
-    text-align: center;
-    color: #006400; /* Zielony kolor nagłówka */
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
-  
-  /* Lista wizyt */
-  .client-appointments ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .client-appointments li {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    padding: 15px;
-    transition: box-shadow 0.3s, transform 0.3s;
-  }
-  
-  .client-appointments li:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    transform: scale(1.02); /* Lekkie powiększenie na hover */
-  }
-  
-  .client-appointments li strong {
-    color: #006400; /* Zielony kolor dla nagłówków w wizytach */
-    font-weight: bold;
-  }
-  
-  /* Styl komunikatów (ładowanie, brak wizyt, błąd) */
-  .client-appointments div {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 20px;
-  }
-  
-  .client-appointments .loading {
-    color: #006400;
-  }
-  
-  .client-appointments .error-message {
-    color: #d8000c;
-  }
-  
-  .client-appointments .no-appointments {
-    color: #555;
-    font-style: italic;
-  }
-  
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Nagłówek */
+.appointments-title {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Lista wizyt */
+.appointments-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Pojedyncza wizyta */
+.appointment-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.appointment-item:hover {
+  background-color: #f1f1f1;
+}
+
+/* Wybrana wizyta */
+.appointment-item.selected {
+  background-color: #e0f7fa;
+}
+
+/* Przycisk przełożenia i usunięcia wizyty */
+.action-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.reschedule-button,
+.delete-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.reschedule-button {
+  background-color: #4caf50;
+}
+
+.reschedule-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button {
+  background-color: #f44336;
+}
+
+.delete-button:hover {
+  background-color: #e53935;
+}
+
+/* Komunikaty o błędach */
+.loading,
+.error-message {
+  text-align: center;
+  color: #d32f2f;
+  font-size: 1.2rem;
+}
+
+.no-visits {
+  text-align: center;
+  color: #555;
+  font-size: 1.2rem;
+}

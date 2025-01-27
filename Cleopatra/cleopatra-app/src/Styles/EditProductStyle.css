@@ -1,0 +1,76 @@
+/* EditProductStyle.css */
+
+/* Kontener formularza */
+.edit-product-form {
+    background-color: #f4f4f4;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  /* Tytuł formularza */
+  .form-title {
+    font-size: 1.8rem;
+    color: #222;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  /* Grupa pól formularza */
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Etykieta formularza */
+  .input-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  /* Pola formularza */
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  /* Stylowanie dla przycisku */
+  .submit-button {
+    background-color: #6f4f1e; /* Złoty kolor */
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #4e3b1f; /* Ciemniejszy złoty */
+    transform: translateY(-3px);
+  }
+  
+  .submit-button:active {
+    transform: translateY(1px);
+  }
+  
+  /* Komunikat o błędzie */
+  .error-message {
+    color: #ff0000;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Schedule } from "../Models/Schedule";
+import { Appointment } from "../Models/Appointment";
+import '../Styles/NewAppointmentEmployeeStyle.css';
 
-const MoveAppointment = () => {
+const MoveAppointmentEmployee = () => {
     const location = useLocation();
     const { appointmentId } = location.state || {};
     const [newDateTime, setNewDateTime] = useState("");
@@ -15,6 +17,7 @@ const MoveAppointment = () => {
     const [availableDates, setAvailableDates] = useState<string[]>([]);
     const [timesByDate, setTimesByDate] = useState<Record<string, string[]>>({});
     const [appointments, setAppointments] = useState<any[]>([]); // Wizyty pracownika
+    const [currentAppointment, setCurrentAppointment] = useState<Appointment | null>(null);
 
     const token = localStorage.getItem("token");
     const tomorrow = new Date();
@@ -44,6 +47,8 @@ const MoveAppointment = () => {
                         dateTime: new Date(appointment.AppointmentDateTime),
                     }));
                     setAppointments(employeeAppointments);
+
+                    
 
                     const dates: string[] = [];
                     const timesByDate: Record<string, string[]> = {};
@@ -138,7 +143,7 @@ const MoveAppointment = () => {
   return (
     <div>
       <form onSubmit={handleFormSubmit} className="appointment-form">
-            <h2>Umów wizytę</h2>
+            <h2>Przełóż wizytę</h2>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             <div>
                 <label>Wybierz datę wizyty:</label>
@@ -168,4 +173,4 @@ const MoveAppointment = () => {
   );
 };
 
-export default MoveAppointment;
+export default MoveAppointmentEmployee;

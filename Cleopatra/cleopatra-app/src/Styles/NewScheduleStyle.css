@@ -1,0 +1,121 @@
+/* NewScheduleStyle.css */
+
+.new-schedule {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    padding: 40px 20px;
+    margin: 0 auto;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #222;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  
+  div {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  input[type="date"],
+  select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease;
+  }
+  
+  input[type="date"]:focus,
+  select:focus {
+    border-color: #6f4f1e; /* Złoty kolor */
+    outline: none;
+  }
+  
+  button {
+    background-color: #6f4f1e; /* Złoty kolor */
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #4e3b1f; /* Ciemniejszy złoty */
+    transform: translateY(-3px); /* Animacja przy hoverze */
+  }
+  
+  button:active {
+    transform: translateY(1px); /* Animacja przy kliknięciu */
+  }
+  
+  .error-message,
+  .success-message {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .error-message {
+    color: #e74c3c; /* Czerwony kolor */
+  }
+  
+  .success-message {
+    color: #2ecc71; /* Zielony kolor */
+  }
+  
+  /* Media queries dla responsywności */
+  @media (max-width: 768px) {
+    .new-schedule {
+      padding: 30px 15px;
+    }
+  
+    h2 {
+      font-size: 1.6rem;
+    }
+  
+    input[type="date"],
+    select,
+    button {
+      font-size: 1rem;
+      padding: 12px 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .new-schedule {
+      padding: 20px 10px;
+    }
+  
+    h2 {
+      font-size: 1.4rem;
+    }
+  
+    input[type="date"],
+    select,
+    button {
+      font-size: 0.9rem;
+    }
+  }
+  

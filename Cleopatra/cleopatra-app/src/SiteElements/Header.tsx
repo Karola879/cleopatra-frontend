@@ -25,49 +25,40 @@ export default function Header() {
   };
 
   return (
-    <div className="header">
+    <header className="header">
       <div className="logo">
-        logo
+        <img src="/Pictures/cleopatra1.jpg" alt="Anita" className="logo-img"/>
       </div>
-      <div className="links">
-        <div>
-          <Link to="/">menu</Link>
-        </div>
-        <div>
-          <Link to="/services">uslugi</Link>
-        </div>
-        <div>
-          <Link to="/prices">cennik</Link>
-        </div>
-        <div>
-          <Link to="/team">nasz zespol</Link>
-        </div>
-        <div>
-          <Link to="/contact">kontakt</Link>
-        </div>
-        <div className="profile">
+      <nav className="navigation">
+        <ul className="nav-links">
+          <li><Link to="/" className="nav-link">Menu</Link></li>
+          <li><Link to="/services" className="nav-link">Usługi</Link></li>
+          <li><Link to="/prices" className="nav-link">Cennik</Link></li>
+          <li><Link to="/team" className="nav-link">Nasz zespół</Link></li>
+          <li><Link to="/contact" className="nav-link">Kontakt</Link></li>
+        </ul>
+        <div className="profile-links">
           {token ? (
             <div>
               <div>
-                {/* Kliknięcie na "Profil" uruchamia funkcję handleProfileClick */}
-                <Link to="#" onClick={handleProfileClick}>Profil</Link>
+                <Link to="#" onClick={handleProfileClick} className="profile-link">Profil</Link>
               </div>
               <div>
-                <Link to="/" onClick={handleLogout}>Wyloguj</Link>
+                <Link to="/" onClick={handleLogout} className="logout-link">Wyloguj</Link>
               </div>
             </div>
           ) : (
             <div>
               <div>
-                <Link to="/login">zaloguj</Link>
+                <Link to="/login" className="auth-link">Zaloguj</Link>
               </div>
               <div>
-                <Link to="/register">zarejestruj</Link>
+                <Link to="/register" className="auth-link">Zarejestruj</Link>
               </div>
             </div>
           )}
         </div>
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 }

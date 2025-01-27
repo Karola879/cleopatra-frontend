@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Schedule } from "../Models/Schedule";
+import '../Styles/NewAppointmentStyle.css';
 
 export default function NewAppointment() {
     const { serviceId } = useParams<{ serviceId: string }>();
@@ -188,18 +189,18 @@ export default function NewAppointment() {
                 <form onSubmit={handleFormSubmit} className="appointment-form">
                     <h2>Umów wizytę</h2>
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
-                    <div>
+                    <div className="form-group">
                         <label>Wybierz pracownika:</label>
-                        <select value={employeeId} onChange={handleEmployeeChange} required>
+                        <select value={employeeId} onChange={handleEmployeeChange} required className="form-select">
                             <option value="">-- Wybierz pracownika --</option>
                             {employees.map((employee) => (
                                 <option key={employee.employeeId} value={employee.employeeId}>{employee.name}</option>
                             ))}
                         </select>
                     </div>
-                    <div>
+                    <div className="form-group">
                         <label>Wybierz datę wizyty:</label>
-                        <select value={selectedDate} onChange={handleDateChange} required>
+                        <select value={selectedDate} onChange={handleDateChange} required className="form-select">
                             <option value="">-- Wybierz datę --</option>
                             {availableDates.map((date, index) => (
                                 <option key={index} value={date}>{date}</option>
@@ -207,9 +208,8 @@ export default function NewAppointment() {
                         </select>
                         {selectedDate && (
                             <>
-                            <br></br>
                                 <label>Wybierz godzinę:</label>
-                                <select value={appointmentDateTime} onChange={handleTimeChange} required>
+                                <select value={appointmentDateTime} onChange={handleTimeChange} required className="form-select">
                                     <option value="">-- Wybierz godzinę --</option>
                                     {availableTimes.map((time, index) => (
                                         <option key={index} value={`${selectedDate}T${time}`}>{time}</option>
@@ -218,15 +218,15 @@ export default function NewAppointment() {
                             </>
                         )}
                     </div>
-                    <div>
+                    <div className="form-group">
                         <label>Nazwa usługi:</label>
-                        <input type="text" value={service.name} disabled />
+                        <input type="text" value={service.name} disabled className="form-input" />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <label>Cena:</label>
-                        <input type="text" value={service.price} disabled />
+                        <input type="text" value={service.price} disabled className="form-input" />
                     </div>
-                    <button type="submit">Umów</button>
+                    <button type="submit" className="submit-button">Umów</button>
                 </form>
             )}
         </div>
