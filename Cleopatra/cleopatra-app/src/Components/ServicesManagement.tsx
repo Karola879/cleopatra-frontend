@@ -62,9 +62,12 @@ export default function ServicesManagement() {
                         key={service.serviceId}
                         className="service-item"
                     >
-                        <strong>{service.name}</strong> <br />
-                        Opis: {service.description} <br />
-                        Cena: {service.price} zł <br />
+                        <div>
+                            <strong>{service.name}</strong> <br /><br></br>
+                            Opis: {service.description} <br /><br></br>
+                            Cena: {service.price} zł <br />
+                        </div>
+                        
                         <div style={{ marginTop: "10px" }}>
                             <button
                                 onClick={() => handleEditClick(service)}

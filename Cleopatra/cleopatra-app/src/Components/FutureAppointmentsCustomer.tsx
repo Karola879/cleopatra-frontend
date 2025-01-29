@@ -119,13 +119,11 @@ const FutureAppointments = () => {
               selectedAppointment?.AppointmentId === appointment.AppointmentId ? "selected" : ""
             }`}
           >
-            <strong>Godzina:</strong> {moment(appointment.AppointmentDateTime).format("YYYY-MM-DD HH:mm")}
+            <strong>Data:</strong> {moment(appointment.AppointmentDateTime).format("YYYY-MM-DD HH:mm")}
             <br />
             <strong>Pracownik:</strong> {getEmployeeName(appointment.EmployeeId)}
             <br />
             <strong>Usługa:</strong> {getServiceName(appointment.ServiceId)}
-            <br />
-            <strong>Status:</strong> {appointment.Status}
           </li>
         ))}
       </ul>

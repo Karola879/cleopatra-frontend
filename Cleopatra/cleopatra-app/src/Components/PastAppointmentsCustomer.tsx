@@ -70,14 +70,12 @@ const PastAppointments = () => {
       <ul>
         {pastAppointments.map((appointment) => (
           <li>
-                          <strong>Godzina:</strong>{" "}
+                          <strong>Data:</strong>{" "}
                           {moment(appointment.AppointmentDateTime).format("YYYY-MM-DD HH:mm")}
                           <br />
                           <strong>Pracownik:</strong> {getEmployeeName(appointment.EmployeeId)}
                           <br />
                           <strong>Usługa:</strong> {getServiceName(appointment.ServiceId)}
-                          <br />
-                          <strong>Status:</strong> {appointment.Status}
                       </li>
         ))}
       </ul>

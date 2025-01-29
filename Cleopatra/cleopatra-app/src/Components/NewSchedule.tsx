@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import '../Styles/NewScheduleStyle.css'; // Import stylów
+import "../Styles/NewScheduleStyle.css"; // Import stylów
 
 const NewSchedule = () => {
   const [startDate, setStartDate] = useState<string>("");
   const [startHour, setStartHour] = useState<string>("10");
-  const [endDate, setEndDate] = useState<string>(""); 
-  const [endHour, setEndHour] = useState<string>("10");
+  const [endDate, setEndDate] = useState<string>("");
+  const [endHour, setEndHour] = useState<string>("11");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [existingSchedules, setExistingSchedules] = useState<any[]>([]);
@@ -15,31 +15,36 @@ const NewSchedule = () => {
   const employeeId = userId ? parseInt(userId, 10) : 0;
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    const fetchExistingSchedules = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5227/api/Schedule/${employeeId}`
-        );
-        setExistingSchedules(response.data);
-      } catch (error) {
-        console.error("Błąd podczas pobierania harmonogramów:", error);
-        setErrorMessage("Nie udało się pobrać harmonogramów. Spróbuj ponownie.");
-      }
-    };
+  // Funkcja do pobrania istniejących harmonogramów
+  const fetchExistingSchedules = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5227/api/Schedule/${employeeId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setExistingSchedules(response.data);
+    } catch (error) {
+      console.error("Błąd podczas pobierania harmonogramów:", error);
+      // Nie ustawiamy errorMessage, aby nie wyświetlać błędu na stronie
+    }
+  };
 
+  useEffect(() => {
     if (employeeId) {
-      fetchExistingSchedules();
+      fetchExistingSchedules(); // Pobierz harmonogramy przy pierwszym renderze
     }
   }, [employeeId]);
 
+  // Funkcja sprawdzająca, czy dany dzień jest już zajęty
   const isDateTaken = (date: string): boolean => {
     return existingSchedules.some((schedule) => {
-      const start = new Date(schedule.StartDateTime);
-      const end = new Date(schedule.EndDateTime);
-      const selectedStart = new Date(date);
-
-      return selectedStart >= start && selectedStart < end;
+      const scheduleStartDate = new Date(schedule.StartDateTime).toISOString().split("T")[0]; // Pobranie tylko daty
+      const selectedDate = new Date(date).toISOString().split("T")[0]; // Pobranie tylko daty
+      return scheduleStartDate === selectedDate;
     });
   };
 
@@ -57,6 +62,11 @@ const NewSchedule = () => {
     return selectedDate.getDay() === 0;
   };
 
+  const isSaturday = (date: string): boolean => {
+    const selectedDate = new Date(date);
+    return selectedDate.getDay() === 6; // 6 to sobota
+  };
+
   const getMinDate = (): string => {
     const tomorrowDate = getTomorrowDate();
     const tomorrowDateObject = new Date(tomorrowDate);
@@ -72,17 +82,14 @@ const NewSchedule = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const getValidTimeRange = (date: string): { min: string, max: string } => {
-    const selectedDate = new Date(date);
-    const dayOfWeek = selectedDate.getDay();
-
-    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-      return { min: "10:00", max: "20:00" };
+  const generateHourOptions = (min: number, max: number, exclude?: number) => {
+    const hours = [];
+    for (let i = min; i <= max; i++) {
+      if (i === exclude) continue; // Pomijamy godzinę, której nie chcemy
+      const hour = String(i).padStart(2, "0");
+      hours.push(hour);
     }
-    if (dayOfWeek === 6) {
-      return { min: "10:00", max: "15:00" };
-    }
-    return { min: "00:00", max: "00:00" };
+    return hours;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -90,7 +97,7 @@ const NewSchedule = () => {
     setErrorMessage(null);
     setSuccessMessage(null);
 
-    if (!startDate || !endDate || !startHour || !endHour) {
+    if (!startDate || !endDate) {
       setErrorMessage("Wszystkie pola są wymagane.");
       return;
     }
@@ -100,10 +107,22 @@ const NewSchedule = () => {
       return;
     }
 
+    fetchExistingSchedules(); // Pobierz aktualny harmonogram
+
+    if (isDateTaken(startDate)) {
+      setErrorMessage("Na wybraną datę istnieje już harmonogram.");
+      return;
+    }
+
     const startDateTime = `${startDate}T${startHour}:00`;
     const endDateTime = `${endDate}T${endHour}:00`;
-    if (isDateTaken(startDateTime)) {
-      setErrorMessage("Wybrana data i godzina są już zajęte.");
+
+    // WALIDACJA GODZIN:
+    const startDateObj = new Date(startDateTime);
+    const endDateObj = new Date(endDateTime);
+
+    if (startDateObj >= endDateObj) {
+      setErrorMessage("Godzina rozpoczęcia musi być przed godziną zakończenia.");
       return;
     }
 
@@ -124,20 +143,13 @@ const NewSchedule = () => {
         }
       );
       setSuccessMessage("Nowy harmonogram został pomyślnie zapisany.");
+      
+      // Po zapisaniu, odśwież dane (zaktualizuj istniejące harmonogramy)
+      fetchExistingSchedules();
     } catch (error) {
       console.error("Błąd podczas zapisywania grafiku:", error);
       setErrorMessage("Nie udało się zapisać nowego grafiku. Spróbuj ponownie.");
     }
-  };
-
-  const generateHourOptions = (min: number, max: number, exclude?: number) => {
-    const hours = [];
-    for (let i = min; i <= max; i++) {
-      if (i === exclude) continue; // Pomijamy godzinę, której nie chcemy
-      const hour = String(i).padStart(2, "0");
-      hours.push(hour);
-    }
-    return hours;
   };
 
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,6 +157,19 @@ const NewSchedule = () => {
     setStartDate(newStartDate);
     setEndDate(newStartDate); // Automatycznie ustawiamy datę zakończenia na datę rozpoczęcia
   };
+
+  // Godziny dla soboty
+  const generateSaturdayHours = () => {
+    return {
+      startHours: generateHourOptions(10, 14),
+      endHours: generateHourOptions(11, 15),
+    };
+  };
+
+  // Zmiana godzin w zależności od wybranej daty
+  const { startHours, endHours } = isSaturday(startDate)
+    ? generateSaturdayHours()
+    : { startHours: generateHourOptions(10, 19), endHours: generateHourOptions(11, 20) };
 
   return (
     <div className="new-schedule">
@@ -169,7 +194,7 @@ const NewSchedule = () => {
             value={startHour}
             onChange={(e) => setStartHour(e.target.value)}
           >
-            {generateHourOptions(10, 19).map((hour) => (
+            {startHours.map((hour) => (
               <option key={hour} value={hour}>
                 {hour}:00
               </option>
@@ -193,7 +218,7 @@ const NewSchedule = () => {
             value={endHour}
             onChange={(e) => setEndHour(e.target.value)}
           >
-            {generateHourOptions(11, 20).map((hour) => (
+            {endHours.map((hour) => (
               <option key={hour} value={hour}>
                 {hour}:00
               </option>

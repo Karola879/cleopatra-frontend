@@ -3,11 +3,17 @@
 /* Podstawowe style dla nagłówka */
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Logo po lewej, linki po prawej */
   align-items: center;
   background-color: #333; /* Ciemne tło */
   padding: 20px 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  flex-wrap: wrap; /* Pozwala na zawijanie elementów w razie potrzeby */
+}
+
+/* Logo pozostaje zawsze po lewej */
+.logo {
+  flex-shrink: 0; /* Zapobiega zmniejszaniu się logo */
 }
 
 .logo-img {
@@ -15,20 +21,29 @@
   border-radius: 50%;
 }
 
+/* Nawigacja po prawej stronie */
 .navigation {
   display: flex;
+  flex-wrap: wrap; /* Linki będą zawijać się do kolejnego rzędu */
+  justify-content: flex-end; /* Domyślnie linki ustawione na prawo */
   align-items: center;
+  flex: 1; /* Zajmuje resztę dostępnego miejsca */
+  max-width: 75%; /* Ogranicza szerokość linków, aby nie przesuwały logo */
 }
 
+/* Lista linków */
 .nav-links {
   display: flex;
+  flex-wrap: wrap; /* Dzięki temu linki mogą przechodzić do kolejnych rzędów */
+  justify-content: flex-end;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .nav-links li {
-  margin: 0 20px;
+  margin: 10px 15px;
+  white-space: nowrap; /* Zapobiega zawijaniu pojedynczych słów */
 }
 
 .nav-link {
@@ -43,16 +58,20 @@
   color: #6f4f1e; /* Złoty kolor przy hoverze */
 }
 
+/* 🔹 Linki do profilu i logowania ustawione obok reszty 🔹 */
 .profile-links {
   display: flex;
+  flex-wrap: wrap; /* Pozwala na przechodzenie do nowego rzędu */
+  justify-content: flex-end;
   align-items: center;
+  margin-left: 20px;
 }
 
 .profile-link, .auth-link, .logout-link {
   text-decoration: none;
   color: #fff;
   font-size: 1rem;
-  margin-left: 20px;
+  margin: 10px 15px;
   font-weight: bold;
   transition: color 0.3s ease;
 }
@@ -61,28 +80,23 @@
   color: #6f4f1e; /* Złoty kolor przy hoverze */
 }
 
-/* Responsywność */
-@media (max-width: 768px) {
+/* 🔹 RESPONSYWNOŚĆ 🔹 */
+@media (max-width: 900px) {
   .header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
+    flex-wrap: wrap;
+    padding: 15px;
   }
 
   .navigation {
-    flex-direction: column;
-    margin-top: 20px;
+    max-width: 100%; /* Pozwala na pełne wykorzystanie szerokości */
+    justify-content: center;
   }
 
   .nav-links {
-    flex-direction: column;
-  }
-
-  .nav-links li {
-    margin: 10px 0;
+    justify-content: center; /* Na mniejszych ekranach linki wyśrodkowane */
   }
 
   .profile-links {
-    margin-top: 20px;
+    justify-content: center;
   }
 }
