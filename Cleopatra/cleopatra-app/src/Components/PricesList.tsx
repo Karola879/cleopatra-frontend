@@ -56,18 +56,22 @@ export default function Prices() {
             <ul className="service-list">
                 {services.map((service) => (
                     <li key={service.serviceId} className="service-item">
-                        <strong className="service-name">{service.name}</strong><br />
-                        <span className="service-duration">Czas trwania: 50 minut</span><br />
-                        <span className="service-price">Cena: {service.price} zł</span><br />
-                        {/* Show the button only if the user is not an Admin */}
-                        {!isAdmin && (
-                            <button
-                                onClick={() => handleScheduleClick(service.serviceId)}
-                                className="schedule-button"
-                            >
-                                Umów usługę
-                            </button>
-                        )}
+                        <div>
+                            <strong className="service-name">{service.name}</strong><br></br><br></br>
+                            <span className="service-duration">Czas trwania: 50 minut</span><br></br><br></br>
+                            <span className="service-price">Cena: {service.price} zł</span>
+                        </div>
+                        <div>
+                            {!isAdmin && (
+                                <button
+                                    onClick={() => handleScheduleClick(service.serviceId)}
+                                    className="schedule-button"
+                                >
+                                    Umów usługę
+                                </button>
+                            )}
+                        </div>
+                        
                     </li>
                 ))}
             </ul>

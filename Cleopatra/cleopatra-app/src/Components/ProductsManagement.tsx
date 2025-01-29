@@ -42,7 +42,7 @@ export default function ProductManagement() {
 
   return (
     <div className="product-list">
-      <h1 className="product-list-title">Materiały</h1>
+      <h1 className="product-list-title">Produkty</h1>
       <button
         onClick={() => navigate("/new-product")}
         className="btn-new-product"
@@ -52,20 +52,25 @@ export default function ProductManagement() {
       <ul className="product-items-list">
         {products.map((product) => (
           <li key={product.ProductId} className="product-item">
-            <div className="product-detail"><strong>Nazwa:</strong> {product.Name}</div>
-            <div className="product-detail"><strong>Marka:</strong> {product.Brand}</div>
-            <div className="product-detail"><strong>Ilość w magazynie:</strong> {product.QuantityInStock}</div>
-            <div className="product-detail"><strong>Cena za użycie:</strong> {product.PricePerUnit}</div>
-            <div className="product-detail">
-              <strong>Data ostatniego uzupełnienia:</strong>{" "}
-              {moment(product.LastRestockedDate).format("YYYY-MM-DD")}
+            <div>
+              <div className="product-detail"><strong>Nazwa:</strong> {product.Name}</div><br></br>
+              <div className="product-detail"><strong>Marka:</strong> {product.Brand}</div>
+              <div className="product-detail"><strong>Ilość w magazynie:</strong> {product.QuantityInStock}</div>
+              <div className="product-detail"><strong>Cena za użycie:</strong> {product.PricePerUnit}</div>
+              <div className="product-detail">
+                <strong>Data ostatniego uzupełnienia:</strong>{" "}
+                {moment(product.LastRestockedDate).format("YYYY-MM-DD")}
+              </div>
+            </div><br></br>
+            <div>
+              <button
+                onClick={() => handleEditClick(product)}
+                className="btn-edit-product"
+              >
+                Edytuj
+              </button>
             </div>
-            <button
-              onClick={() => handleEditClick(product)}
-              className="btn-edit-product"
-            >
-              Edytuj
-            </button>
+            
           </li>
         ))}
       </ul>

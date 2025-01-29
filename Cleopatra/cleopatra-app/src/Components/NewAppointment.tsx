@@ -25,7 +25,7 @@ export default function NewAppointment() {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setDate(tomorrow.getDate() +1);
 
     useEffect(() => {
         const fetchService = async () => {
@@ -60,65 +60,66 @@ export default function NewAppointment() {
     }, [token]);
 
     useEffect(() => {
-        if (employeeId) {
-            const fetchScheduleAndAppointments = async () => {
-                try {
-                    const [scheduleResponse, appointmentsResponse] = await Promise.all([
-                        axios.get("http://localhost:5227/api/Schedule", {
-                            headers: { Authorization: `Bearer ${token}` },
-                        }),
-                        axios.get(`http://localhost:5227/api/Appointments/GetAppointments/${employeeId}`, {
-                            headers: { Authorization: `Bearer ${token}` },
-                        }),
-                    ]);
-
-                    const scheduleData: Schedule[] = scheduleResponse.data.filter(
-                        (schedule: Schedule) => schedule.EmployeeId === employeeId
-                    );
-
-                    const employeeAppointments = appointmentsResponse.data.map((appointment: any) => ({
-                        dateTime: new Date(appointment.AppointmentDateTime),
-                    }));
-                    setAppointments(employeeAppointments);
-
-                    const dates: string[] = [];
-                    const timesByDate: Record<string, string[]> = {};
-
-                    scheduleData.forEach((s) => {
-                        const start = new Date(s.StartDateTime);
-                        const end = new Date(s.EndDateTime);
-
-                        let currentTime = new Date(start.getTime());
-                        while (currentTime < end) {
-                            const availableDate = currentTime.toLocaleDateString('sv-SE');
-                            if (availableDate >= tomorrow.toLocaleDateString('sv-SE')) {
-                                if (!dates.includes(availableDate)) {
-                                    dates.push(availableDate);
-                                }
-
-                                const time = currentTime.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
-                                if (!timesByDate[availableDate]) {
-                                    timesByDate[availableDate] = [];
-                                }
-                                timesByDate[availableDate].push(time);
+        const fetchScheduleAndAppointments = async () => {
+            try {
+                const [scheduleResponse, appointmentsResponse] = await Promise.all([
+                    axios.get("http://localhost:5227/api/Schedule", {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }),
+                    axios.get(`http://localhost:5227/api/Appointments/GetAppointments/${employeeId}`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }),
+                ]);
+    
+                const scheduleData: Schedule[] = scheduleResponse.data.filter(
+                    (schedule: Schedule) => schedule.EmployeeId === employeeId
+                );
+    
+                const employeeAppointments = appointmentsResponse.data.map((appointment: any) => ({
+                    dateTime: new Date(appointment.AppointmentDateTime),
+                }));
+                setAppointments(employeeAppointments);
+    
+                const dates: string[] = [];
+                const timesByDate: Record<string, string[]> = {};
+    
+                scheduleData.forEach((s) => {
+                    const start = new Date(s.StartDateTime);
+                    const end = new Date(s.EndDateTime);
+    
+                    let currentTime = new Date(start.getTime());
+                    while (currentTime < end) {
+                        const availableDate = currentTime.toLocaleDateString('sv-SE');
+                        if (availableDate >= tomorrow.toLocaleDateString('sv-SE')) {
+                            if (!dates.includes(availableDate)) {
+                                dates.push(availableDate);
                             }
-                            currentTime.setMinutes(currentTime.getMinutes() + 60);
+    
+                            const time = currentTime.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+                            if (!timesByDate[availableDate]) {
+                                timesByDate[availableDate] = [];
+                            }
+                            timesByDate[availableDate].push(time);
                         }
-                    });
-
-                    setAvailableDates(dates);
-                    setTimesByDate(timesByDate);
-                    if (dates.length > 0) {
-                        setSelectedDate(dates[0]);
-                        setAvailableTimes(timesByDate[dates[0]]);
+                        currentTime.setMinutes(currentTime.getMinutes() + 60);
                     }
-                } catch (error) {
-                    console.error("Error fetching schedule or appointments:", error);
-                    setErrorMessage("Nie udało się pobrać danych harmonogramu lub wizyt.");
+                });
+    
+                // Posortuj daty w porządku rosnącym
+                const sortedDates = dates.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+                setAvailableDates(sortedDates);
+                setTimesByDate(timesByDate);
+    
+                if (sortedDates.length > 0) {
+                    setSelectedDate(sortedDates[0]);
+                    setAvailableTimes(timesByDate[sortedDates[0]]);
                 }
-            };
-            fetchScheduleAndAppointments();
-        }
+            } catch (error) {
+                console.error("Error fetching schedule or appointments:", error);
+                setErrorMessage("Nie udało się pobrać danych harmonogramu lub wizyt.");
+            }
+        };
+        fetchScheduleAndAppointments();
     }, [employeeId, token]);
 
     useEffect(() => {

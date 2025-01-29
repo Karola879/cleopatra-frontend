@@ -37,7 +37,7 @@
   
   .new-schedule-button {
     padding: 8px 15px;
-    background-color: #4caf50;
+    background-color: #202020;
     color: white;
     border: none;
     border-radius: 5px;
@@ -47,7 +47,7 @@
   }
   
   .new-schedule-button:hover {
-    background-color: #45a049;
+    background-color: #91722f;
   }
   
   /* Tytuł wybranej daty */

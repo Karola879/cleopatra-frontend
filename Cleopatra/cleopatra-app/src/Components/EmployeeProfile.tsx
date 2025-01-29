@@ -27,7 +27,7 @@ export default function EmployeeProfile() {
                     Wizyty
                 </button>
                 <button onClick={handleNavigateProducts} className="ebtn">
-                    Materiały
+                    Produkty
                 </button>
                 <button onClick={handleNavigateEmployeeSchedule} className="ebtn">
                     Harmonogram

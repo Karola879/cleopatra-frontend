@@ -1,81 +1,85 @@
 /* ServicesListStyle.css */
 .product-list {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff; /* Tło dla listy */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Delikatny cień */
-    border-radius: 8px; /* Zaokrąglone rogi */
-  }
-  
-  .product-list h1 {
-    font-size: 28px;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #8B0000; /* Bordowy kolor nagłówka */
-  }
-  
-  .product-list ul {
-    list-style-type: none; /* Usuń domyślne stylowanie listy */
-    padding: 0;
-    margin: 0;
-  }
-  
-  .product-list .product-item {
-    margin: 15px 0;
-    padding: 10px;
-    border: 1px solid #ddd; /* Delikatne obramowanie dla każdego elementu */
-    border-radius: 5px; /* Zaokrąglone rogi dla elementów */
-    background-color: #f9f9f9; /* Jasnoszare tło dla kontrastu */
-    transition: transform 0.2s, box-shadow 0.2s; /* Dodanie efektu hover */
-  }
-  
-  .product-list .product-item strong {
-    display: block;
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  
-  .product-list .product-item:hover {
-    transform: scale(1.02); /* Powiększenie przy najechaniu */
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Intensywniejszy cień przy hover */
-  }
-  
-  /* Ładowanie i błąd */
-  .product-list div {
-    font-size: 18px;
-    color: #555;
-    text-align: center;
-    padding: 10px;
-  }
-
-  .product-list .product-item div {
-    display: flex;
-    justify-content: flex-start; /* Wyrównanie do lewej */
-    align-items: center; /* Wyrównanie pionowe */
-    gap: 5px; /* Odstęp między elementami (etykieta i wartość) */
-    margin-bottom: 5px; /* Odstęp między liniami */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-.product-list .product-item strong {
-    margin-right: 0; /* Usuń nadmiarowy margines */
-    font-weight: bold; /* Wyróżnienie tekstu etykiety */
-    color: #333;
+.product-list h1 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #8B0000;
 }
-  
-  /* Responsywność */
-  @media (max-width: 768px) {
-    .product-list {
+
+.product-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product-list .product-item {
+  display: flex;
+  justify-content: space-between; /* Właściwości po lewej, przycisk po prawej */
+  align-items: center;
+  flex-wrap: wrap; /* Zapobiega problemom na mniejszych ekranach */
+  margin: 15px 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Kontener na właściwości produktu */
+.product-list .product-details {
+  display: flex;
+  flex-direction: column; /* Każda właściwość pod sobą */
+  gap: 5px;
+}
+
+/* Styl dla każdej właściwości produktu */
+.product-list .product-detail {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Przyciski */
+.product-list .btn-edit-product {
+  background-color: #6f4f1e;
+  color: white;
+  padding: 18px 26px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.product-list .btn-edit-product:hover {
+  background-color: #4e3b1f;
+  transform: scale(1.05);
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .product-list {
       padding: 15px;
-    }
-  
-    .product-list h1 {
-      font-size: 24px;
-    }
-  
-    .product-list .product-item {
-      font-size: 14px;
-    }
   }
-  
+
+  .product-list h1 {
+      font-size: 24px;
+  }
+
+  .product-list .product-item {
+      flex-direction: column; /* Na małych ekranach wszystko pod sobą */
+      align-items: flex-start;
+  }
+
+  .product-list .btn-edit-product {
+      align-self: flex-end; /* Przycisk wyrównany do prawej */
+  }
+}

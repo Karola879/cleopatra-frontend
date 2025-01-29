@@ -31,13 +31,13 @@
 .service-item {
   background-color: #fff;
   margin: 10px 0;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .service-name {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: #333;
 }
@@ -48,26 +48,27 @@
   color: #555;
 }
 
+/* 🔹 Zwiększona wysokość przycisku 🔹 */
 .schedule-button {
   background-color: #6f4f1e; /* Złoty kolor */
   color: #fff;
-  padding: 12px 20px;
+  padding: 12px 20px; /* Większa wysokość */
   border: none;
-  border-radius: 5px;
-  font-size: 1rem;
+  border-radius: 5px; /* Nieco większe zaokrąglenie */
+  font-size: 0.9rem;
   cursor: pointer;
-  width: 100%;
+  width: auto; /* Dopasowana szerokość */
   margin-top: 10px;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .schedule-button:hover {
-  background-color: #4e3b1f; /* Ciemniejszy złoty */
-  transform: translateY(-3px);
+  background-color: #4e3b1f;
+  transform: translateY(-2px);
 }
 
 .schedule-button:active {
-  transform: translateY(1px); /* Animacja przy kliknięciu */
+  transform: translateY(1px);
 }
 
 /* Styl ładowania */
@@ -97,16 +98,16 @@
   }
 
   .service-item {
-    padding: 15px;
+    padding: 12px;
   }
 
   .service-name {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .schedule-button {
     font-size: 0.9rem;
-    padding: 10px 15px;
+    padding: 12px 18px; /* Na średnich ekranach przycisk minimalnie większy */
   }
 }
 
@@ -124,11 +125,11 @@
   }
 
   .service-name {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .schedule-button {
-    font-size: 0.9rem;
-    padding: 8px 12px;
+    font-size: 0.85rem;
+    padding: 20px 20px; /* Trochę większy, ale nadal kompaktowy */
   }
 }
